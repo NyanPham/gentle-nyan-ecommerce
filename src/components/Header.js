@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faPhoneVolume, faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { faFacebookSquare, faTwitterSquare, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
 import logo from '../assets/nyan-logo.png'
 import Navbar from './Navbar'
-
+import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 export default function Header() {
+    const currentUser = useSelector(state => state.currentUser)
+    const dispatch = useDispatch()
+    const [error, setError] = useState('')
+
+    function handleLogOut() {
+        
+    }
+
     return (
         <header className="w-100">
             <div className="px-8 py-4 flex justify-between w-100 bg-gray-800 text-white">
@@ -15,10 +24,23 @@ export default function Header() {
                     <FontAwesomeIcon icon={faTwitterSquare} className="text-2xl"/>
                     <FontAwesomeIcon icon={faInstagramSquare} className="text-2xl"/>
                 </div>
-                <div className='flex space-x-2 items-center text-base'>
-                    <FontAwesomeIcon icon={faUser} className="text-2xl"/>
-                    <strong>Sign In</strong>
+                <div className="flex gap-2">
+                    <p className="mr-6">{currentUser?.email}</p>
+                    {currentUser
+                        ? (<button className='flex space-x-2 items-center text-base' onClick={handleLogOut}>
+                                <FontAwesomeIcon icon={faUser} className="text-2xl"/>
+                                <strong>Logout</strong>
+                            </button>)
+                        : (
+                            <Link to='/login' className='flex space-x-2 items-center text-base'>
+                                <FontAwesomeIcon icon={faUser} className="text-2xl"/>
+                                <strong>Login</strong>
+                            </Link>
+                        )
+                    }
+                    
                 </div>
+                
             </div>
             <div className="px-8 py-4 bg-white flex justify-between items-center">
                 <div className="flex flex-row gap-3">

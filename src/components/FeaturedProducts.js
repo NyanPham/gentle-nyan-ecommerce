@@ -11,7 +11,6 @@ export default function FeaturedProducts() {
         dispatch(fetchProducts())
     }, [])
 
-    console.log(products)
     return (
         <div className="py-8 px-16 min-h-screen bg-gray-200">
             <h2 className="text-center text-3xl mt-4">Featured products</h2>
