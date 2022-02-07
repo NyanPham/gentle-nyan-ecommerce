@@ -1,29 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import ProductPreview from './ProductPreview';
-import { db } from '../firebase'
-import { getDocs, collection } from 'firebase/firestore'
-
+import { fetchProducts } from '../redux/actions'
+import { useSelector, useDispatch } from 'react-redux'
 
 export default function FeaturedProducts() {
+    const products = useSelector(state => state.products.shirts)
+    const dispatch = useDispatch()
 
-    const [items, setItems] = useState([])
-
-    useEffect(async () => {
-        const q = await getDocs(collection(db, 'shirts'))
-        const newItems = q.docs.map(doc => {
-            return {
-                ...doc.data()
-            }
-        })
-        if (newItems) return setItems(newItems)
+    useEffect(() => {
+        dispatch(fetchProducts())
     }, [])
 
+    console.log(products)
     return (
-        <div className="py-4 px-16 min-h-screen bg-gray-200">
-            <h2 className="text-center text-3xl">Featured products</h2>
+        <div className="py-8 px-16 min-h-screen bg-gray-200">
+            <h2 className="text-center text-3xl mt-4">Featured products</h2>
             <div className="flex gap-4 justify-evenly items-center flex-wrap mt-8">
-                {items.length > 0 && (
-                    items.map(item => (
+                {products.length > 0 && (
+                    products.map(item => (
                         <ProductPreview key={item.code} {...item}/>
                     ))
                 )}
