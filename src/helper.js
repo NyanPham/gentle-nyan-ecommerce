@@ -13,3 +13,9 @@ export function formatDoc(doc) {
         ...doc.data()
     }
 }
+
+export function resetValue(inputFields) {
+    inputFields.forEach(field => {
+        field.value = ''
+    })
+}

@@ -6,14 +6,14 @@ import logo from '../assets/nyan-logo.png'
 import Navbar from './Navbar'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { logOut } from '../redux/actions'
 
 export default function Header() {
     const currentUser = useSelector(state => state.currentUser)
     const dispatch = useDispatch()
-    const [error, setError] = useState('')
 
     function handleLogOut() {
-        
+        dispatch(logOut())
     }
 
     return (

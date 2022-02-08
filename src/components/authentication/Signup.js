@@ -1,15 +1,15 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
-import { signUp } from '../../redux/actions'
+import { signUp, setSignUpError } from '../../redux/actions'
 import { useSelector, useDispatch } from 'react-redux'
+import { resetValue } from '../../helper'
 
 export default function Signup() {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
     const currentUser = useSelector(state => state.currentUser)
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState('')
+    const { loading, error } = useSelector(state => state.signUpStatus)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -17,20 +17,19 @@ export default function Signup() {
         e.preventDefault()
 
         if (passwordConfirmRef.current.value !== passwordRef.current.value) {
-            return setError('Passwords do not match')
+            return dispatch(setSignUpError('Passwords do not match'))
         }
 
-        try {
-            setLoading(true)
-            setError('')
-            const authed = await signUp(emailRef.current.value, passwordRef.current.value)
-            console.log(authed)
-        } catch {
-            setError('Failed to create account. Please try again later')
-        }
-        setLoading(false)
+        dispatch(signUp(emailRef.current.value, passwordRef.current.value))
     }
 
+    useEffect(() => {
+        if (currentUser?.email) {
+            resetValue([emailRef.current, passwordRef.current, passwordConfirmRef.current])
+            navigate('/')
+        }
+    }, [currentUser])
+    
     return (
         <div className="py-8 px-16 bg-white h-screen text-center">
             <div className="flex justify-between items-center">
@@ -39,7 +38,7 @@ export default function Signup() {
                     Login
                 </Link>
             </div>
-            <form className="text-center max-w-lg mx-auto mt-6">
+            <form className="text-center max-w-lg mx-auto mt-6" onSubmit={handleCreateAccount}>
                 <h2 className="text-3xl text-gray-900 font-bold">Wanna join us?</h2>
                 <h3 className="text-slate-500 mt-6">Enter your info below to create account</h3>
                 {error && <p className="text-red-500 mt-6">{error}</p>}
@@ -47,15 +46,15 @@ export default function Signup() {
                     <label htmlFor="email" className="text-gray-700 text-lg">Your email</label>
                     <input 
                         className="w-full p-3 mt-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-offset-1 focus:ring-sky-400" 
-                        type="email" id="email" placeholder='eg.you@website.com' required={true}
+                        type="email" id="email" placeholder='eg.you@website.com' required
                         ref={emailRef}
                     />
                 </div>
                 <div className="mt-6 flex flex-col justify-center items-start">
                     <label htmlFor="password" className="text-gray-700 text-lg">Your password</label>
                     <input 
-                        className="w-full p-3 mt-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-offset-1 focus:ring-sky-400"                     
-                        type="password" id="password" placeholder="eg.yourpassword@a234^" required={true}
+                        className="w-full p-3 mt-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-offset-1 focus:ring-sky-400 "                     
+                        type="password" id="password" placeholder="eg.yourpassword@a234^" required
                         ref={passwordRef}
                     />
                 </div>
@@ -63,13 +62,13 @@ export default function Signup() {
                     <label htmlFor="password-confirm" className="text-gray-700 text-lg">Confirm your password</label>
                     <input 
                         className="w-full p-3 mt-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-offset-1 focus:ring-sky-400"                     
-                        type="password" id="password-confirm" placeholder="eg.yourpassword@a234^" required={loading}
+                        type="password" id="password-confirm" placeholder="eg.yourpassword@a234^" required
                         ref={passwordConfirmRef}
                     />
                 </div>
                 <button 
                     className="py-1.5 px-2.5 mt-8 mb-6 w-full bg-sky-500 text-lg text-white rounded-sm hover:bg-sky-400 focus:bg-sky-600 transition disabled:bg-slate-300"
-                    onClick={handleCreateAccount}
+                    type="submit"
                     disabled={loading}
                 >
                     Create Account
