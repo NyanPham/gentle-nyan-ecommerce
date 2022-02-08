@@ -8,6 +8,17 @@ import { formatDoc } from '../helper'
 import { useSelector, useDispatch } from 'react-redux'  
 import { addToBasket } from '../redux/actions';
 
+const COLOR_MAP = {
+    blue: 'bg-blue-500',
+    red: 'bg-red-500',
+    gray: 'bg-gray-500',
+    green: 'bg-green-500',
+    pink: 'bg-pink-500',
+    indigo: 'bg-indigo-500',
+    sky: 'bg-sky-5',
+    white: 'bg-white'
+}
+
 export default function ProductDetails() {
     const [currentProduct, setCurrentProduct] = useState({})
     const [currentColor, setCurrentColor] = useState('')
@@ -95,14 +106,13 @@ export default function ProductDetails() {
         dispatch(addToBasket(currentUser?.uid, productId, currentProduct, currentColor, currentSize, currentAmount))
     }
 
-    const colors = ['bg-blue-500', 'bg-gray-400']
-     return (
+    return (
          <div className="p-12 flex flex-row items-start gap-12 bg-gray-200">
              <div className="w-2/4 flex justify-center items-center">
                 {currentProduct?.imageURL && (
                     <img 
                     className="w-72" 
-                    src={`https://${currentProduct.imageURL}`}
+                    src={currentProduct.imageURL}
                 />
                 )} 
              </div>
@@ -142,10 +152,11 @@ export default function ProductDetails() {
                     <h3 className="text-red-500 text-2xl">VND {currentProduct?.price}</h3>
                     <div className='space-y-2'>
                         <h4>Color</h4>
-                        {colors?.map((color, index) => {
+                        {currentProduct.colors?.map((color, index) => {
+                            console.log(color)
                             return (
                                 <div 
-                                    className={`${color} ${currentColor === color ? 'border-2 border-black' : ''} w-7 h-7 rounded-full inline-block mr-2 cursor-pointer`} 
+                                    className={`${COLOR_MAP[color]} ${currentColor === color ? ' border-2 border-black' : ''} w-7 h-7 rounded-full inline-block mr-2 cursor-pointer`} 
                                     key={`color_${index}`}
                                     onClick={() => {setCurrentColor(color)}}
                                 />

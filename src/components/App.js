@@ -12,6 +12,10 @@ import Signup from './authentication/Signup'
 import ForgotPassword from './authentication/ForgotPassword'
 import Cart from './cart-and-checkout/Cart'
 import Checkout from './cart-and-checkout/Checkout'
+import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
+
+const stripePromise = loadStripe('pk_test_51KPg5nHUOdMFaBHmnqMPEALXISXFyDNA6Fq2xYB6rfdVBkfgGDo2VCcq3jllLPKUMOD9SpJvYepxB3kCWYpmEDLH00o0vEdn9h')
 
 function App() {
 	const dispatch = useDispatch()
@@ -39,7 +43,7 @@ function App() {
 					<Route path="/signup" element={<Signup />} />
 					<Route path="/forgot-password" element={<ForgotPassword />} />
 					<Route path="/cart" element={<><Header /><Cart /></>} />
-					<Route path="/checkout" element={<Checkout />} />
+					<Route path="/checkout" element={ <Elements stripe={stripePromise}><Checkout /></Elements>} />
 				</Routes>
 			</Router>
 		</div>

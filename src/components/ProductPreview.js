@@ -11,16 +11,16 @@ export default function ProductPreview({id, imageURL, name, price, salePercent =
                     </button>
                 </Link>
             </div>
-            <div className="flex justify-between">
-                <span className="py-0.5 px-1.5 bg-blue-700 text-white rounded-lg" >
-                    {salePercent ? `${salePercent}%` : ''}
-                </span>
+            <div className="flex justify-between h-7">
+                
+                {salePercent ? <span className="py-0.5 px-1.5 bg-blue-700 text-white rounded-lg" >{salePercent}%</span> : ''}
+                
                 <span className="text-red-500">
                     {outOfStock ? 'Out of stock' : ''}
                 </span> 
             </div>
             <div className="text-center space-y-1 mt-2">
-                <img className="max-h-32 mx-auto" src={`https://${imageURL}`} alt={name}/>
+                <img className="max-h-32 mx-auto" src={imageURL} alt={name}/>
                 <h3 className="text-lg">{name}</h3>
                 <p className="text-base text-blue-800">VND {price}</p>
             </div>

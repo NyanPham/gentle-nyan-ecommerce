@@ -143,7 +143,7 @@ export default function Checkout() {
                         <CheckoutProduct 
                             key={`checkout_item${item.productId}_${index}`}
                             inBasketItemId={item.id}
-                            imageURL={`https://${item.imageURL}`}
+                            imageURL={item.imageURL}
                             name={item.name}
                             color={item.chosenColor}
                             size={item.chosenSize}

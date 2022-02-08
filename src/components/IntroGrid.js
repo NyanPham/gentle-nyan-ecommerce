@@ -39,7 +39,7 @@ function Benefit({ icon, name, description }) {
 
 export default function IntroGrid() {
     return (
-        <section className="max-h-screen bg-white">
+        <section className="bg-white">
             <div className="flex flex-row justify-between gap-0.5">
                 {BENEFITS.map((benefit, index) => (
                     <Benefit 
@@ -50,7 +50,7 @@ export default function IntroGrid() {
                     />
                 ))}
             </div>
-            <div className="py-8 px-16 h-100 grid grid-cols-3 grid-rows-2 justify-center gap-2 items-center relative">
+            <div className="py-8 px-16 h-100 grid grid-cols-3 grid-rows-2 justify-center gap-2 items-center relative max-auto">
                 <div 
                     className="relative h-60 w-full bg-cover bg-no-repeat bg-center" 
                     style={{backgroundImage: `url(${manSunglasses})`, backgroundColor: 'rgba(0,0,0,0.3)', backgroundBlendMode: 'multiply'}}
