@@ -6,7 +6,7 @@ import manJump from '../assets/man-jump.png'
 import manShirt from '../assets/man-shirt.jpg'
 import shoes from '../assets/shoes.jpg'
 
-const BENEFITS = [
+export const BENEFITS = [
     {
         icon: faTruck,
         name: 'Free Shipping',

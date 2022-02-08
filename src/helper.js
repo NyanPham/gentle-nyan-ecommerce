@@ -19,3 +19,9 @@ export function resetValue(inputFields) {
         field.value = ''
     })
 }
+
+export function getTotalBasket(basket) {
+    return basket.reduce((total, item) => {
+        return total + item.price * item.amount
+    }, 0)
+}

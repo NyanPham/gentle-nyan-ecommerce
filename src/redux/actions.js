@@ -1,14 +1,16 @@
 import { db, auth } from '../firebase'
-import { collection, getDocs } from 'firebase/firestore' 
+import { collection, getDocs, addDoc, query, where, onSnapshot } from 'firebase/firestore' 
 import { 
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword,
     signOut,
     sendPasswordResetEmail } from 'firebase/auth'
-import { formatDocs } from '../helper'
+import { formatDoc, formatDocs } from '../helper'
 
 export const ACTIONS = {
     FETCH_PRODUCTS: 'fetch-products',
+    FETCH_BASKET: 'add-to-basket',
+
     SIGN_UP: 'sign-up',
     LOG_IN: 'sign-in',
     LOG_OUT: 'sign-out',
@@ -37,6 +39,43 @@ export function fetchProducts() {
                 payload: {
                     shirts: formatDocs(res.docs)
                 }
+            })
+        })
+    }
+}
+
+export function addToBasket(userId, productId, {name, imageURL, price}, chosenColor, chosenSize, amount) {
+    return async function (dispatch) {
+        const addBasketDoc = collection(db, 'baskets')
+        await addDoc(addBasketDoc, {
+            userId,
+            productId,
+            name: name,
+            imageURL: imageURL,
+            chosenColor,
+            chosenSize,
+            amount,
+            price
+        })
+        const q = query(collection(db, 'baskets'), where('userId', '==', userId))
+        onSnapshot(q, snapshot=> {
+            const basket = snapshot.docs.map(formatDoc)
+            dispatch({
+                type: ACTIONS.FETCH_BASKET,
+                payload: { basket }
+            })
+        })
+    }
+}
+
+export function fetchBasket(userId) {
+    return async function (dispatch) {
+        const q = query(collection(db, 'baskets'), where('userId', '==', userId))
+        onSnapshot(q, snapshot=> {
+            const basket = snapshot.docs.map(formatDoc)
+            dispatch({
+                type: ACTIONS.FETCH_BASKET,
+                payload: { basket }
             })
         })
     }

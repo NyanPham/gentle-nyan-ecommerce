@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faPhoneVolume, faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { faFacebookSquare, faTwitterSquare, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
@@ -10,6 +10,7 @@ import { logOut } from '../redux/actions'
 
 export default function Header() {
     const currentUser = useSelector(state => state.currentUser)
+    const basket = useSelector(state => state.basket)
     const dispatch = useDispatch()
 
     function handleLogOut() {
@@ -64,7 +65,10 @@ export default function Header() {
                 </div>
                 <div className="flex flex-row gap-3">
                     <FontAwesomeIcon icon={faSearch} className="function-icon"/>
-                    <FontAwesomeIcon icon={faShoppingCart} className="function-icon"/>
+                    <Link to={`${currentUser ? '/cart' : '/login'}`}>
+                        <FontAwesomeIcon icon={faShoppingCart} className="function-icon"/>
+                        {basket?.length}
+                    </Link>
                 </div>
             </div>
             <Navbar />

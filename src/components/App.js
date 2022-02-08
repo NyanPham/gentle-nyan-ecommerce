@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import { auth } from '../firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
-import { ACTIONS } from '../redux/actions'
+import { ACTIONS, fetchBasket } from '../redux/actions'
 import Header from "./Header";
 import Home from "./Home";
 import Footer from './Footer';
@@ -10,6 +10,7 @@ import ProductDetails from './ProductDetails';
 import Login from './authentication/Login';
 import Signup from './authentication/Signup'
 import ForgotPassword from './authentication/ForgotPassword'
+import Cart from './cart-and-checkout/Cart'
 
 function App() {
 	const dispatch = useDispatch()
@@ -19,6 +20,7 @@ function App() {
 				type: ACTIONS.LOG_IN,
 				payload: { currentUser: user }
 			})
+			dispatch(fetchBasket(user.uid))
 		} else {
 			dispatch({
 				type: ACTIONS.LOG_OUT
@@ -35,6 +37,7 @@ function App() {
 					<Route path="/login" element={<Login />} />
 					<Route path="/signup" element={<Signup />} />
 					<Route path="/forgot-password" element={<ForgotPassword />} />
+					<Route path="/cart" element={<><Header /><Cart /></>} />
 				</Routes>
 			</Router>
 		</div>

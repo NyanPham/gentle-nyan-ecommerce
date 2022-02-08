@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { db } from '../firebase'
-import { collection, doc, getDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, addDoc } from 'firebase/firestore'
 import { formatDoc } from '../helper'
+import { useSelector, useDispatch } from 'react-redux'  
+import { addToBasket } from '../redux/actions';
 
 export default function ProductDetails() {
     const [currentProduct, setCurrentProduct] = useState({})
@@ -13,6 +15,9 @@ export default function ProductDetails() {
     const [currentAmount, setCurrentAmount] = useState(1)
     const [messages, setMessages] = useState([])
     const { productId } = useParams()
+    const currentUser = useSelector(state => state.currentUser)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const query = doc(db, 'shirts', productId)
@@ -86,6 +91,8 @@ export default function ProductDetails() {
         e.preventDefault()
         if (!validateSubmit()) return
         // Logic to add to basket
+        if (!currentUser) return navigate('/login')
+        dispatch(addToBasket(currentUser?.uid, productId, currentProduct, currentColor, currentSize, currentAmount))
     }
 
     const colors = ['bg-blue-500', 'bg-gray-400']
