@@ -1,8 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import CheckoutProduct from './CheckoutProduct'
 import { useSelector } from 'react-redux'
 import { getTotalBasket } from '../../helper'
 import TextInput from '../TextInput'
+import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
+import { useNavigate } from 'react-router-dom'
 
 const initialUserInfo = {
     name: '',
@@ -23,18 +25,58 @@ export default function Checkout() {
     const submitBtnRef = useRef()
     const [userInfo, setUserInfo] = useState(initialUserInfo)
     const [validFields, setValidFields] = useState(fields)
+    const [secret, setClientSecret] = useState()
+    console.log(secret)
+    const stripe = useStripe()
+    const elements = useElements()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        async function getClientSecret() {
+            const checkoutItems = basket.map(item => {
+                return {
+                    id: item.id,
+                    name: item.name, 
+                    amount: item.amount, 
+                    price: item.price
+                }
+            })
+
+            const response = await fetch('http://localhost:4242/create-payment-intent', {
+                method: 'post',
+                headers: { "Content-Type": "application/json"},
+                body: JSON.stringify({ items: checkoutItems })
+            })
+            const { clientSecret } = await response.json()
+            setClientSecret(clientSecret)     
+        }
+
+        getClientSecret()
+        
+    }, [basket]) 
 
     function handlePayment(e) {
         e.preventDefault()
+        if (!stripe) return
+
         let isValid = true
         const fields = [...Object.keys(validFields)]
         fields.forEach(field => {
             if (!validFields[field]) isValid = false
         })
+        if (!isValid) return
 
-        if (isValid) {
-            ///handle logic to charge user
-        }
+        stripe.confirmCardPayment(secret, {
+            payment_method: {
+                card: elements.getElement(CardElement)
+            }
+        }).then(({ paymentIntent }) => {
+            //should move this to redux
+            //then create orders history
+            navigate('/checkout/payment-success')
+        }).catch(() => {
+            navigate('/checkout/payment-failure')
+        })
     }
 
     function handleInputChange(e) {
@@ -44,6 +86,10 @@ export default function Checkout() {
                 [e.target.name]: e.target.value
             }
         })
+    }
+
+    function handleCardChange(e) {
+        e.preventDefault()
     }
     
 
@@ -125,14 +171,9 @@ export default function Checkout() {
                             setValidFields={setValidFields}
                         />
                     </div>
-                    <div className="form-group">
-                        <label className="label" htmlFor="name">Pay method</label>
-                        <input 
-                            className="text-input" 
-                            type="text" 
-                            placeholder='eg.Credit card' 
-                            required
-                        />
+                    <div className="mt-8 p-6 border border-slate-500 rounded-lg">
+                        <label htmlFor='card-element mb-6'>Your card number</label>
+                        <CardElement onChange={handleCardChange}/>
                     </div>
                     <button type="submit" ref={submitBtnRef} hidden={true} />
                 </form>

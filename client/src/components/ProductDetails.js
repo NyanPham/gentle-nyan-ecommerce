@@ -153,7 +153,6 @@ export default function ProductDetails() {
                     <div className='space-y-2'>
                         <h4>Color</h4>
                         {currentProduct.colors?.map((color, index) => {
-                            console.log(color)
                             return (
                                 <div 
                                     className={`${COLOR_MAP[color]} ${currentColor === color ? ' border-2 border-black' : ''} w-7 h-7 rounded-full inline-block mr-2 cursor-pointer`} 

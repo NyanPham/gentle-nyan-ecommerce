@@ -14,6 +14,8 @@ import Cart from './cart-and-checkout/Cart'
 import Checkout from './cart-and-checkout/Checkout'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
+import PaymentSuccess from './cart-and-checkout/PaymentSuccess'
+import PaymentFailure from './cart-and-checkout/PaymentFailure'
 
 const stripePromise = loadStripe('pk_test_51KPg5nHUOdMFaBHmnqMPEALXISXFyDNA6Fq2xYB6rfdVBkfgGDo2VCcq3jllLPKUMOD9SpJvYepxB3kCWYpmEDLH00o0vEdn9h')
 
@@ -43,7 +45,9 @@ function App() {
 					<Route path="/signup" element={<Signup />} />
 					<Route path="/forgot-password" element={<ForgotPassword />} />
 					<Route path="/cart" element={<><Header /><Cart /></>} />
-					<Route path="/checkout" element={ <Elements stripe={stripePromise}><Checkout /></Elements>} />
+					<Route path="/checkout" element={ <Elements stripe={stripePromise}><Checkout /></Elements>}/>
+					<Route path="/checkout/payment-success" element={<PaymentSuccess />}/>
+					<Route path="/checkout/payment-failure" element={<PaymentFailure />}/>
 				</Routes>
 			</Router>
 		</div>
