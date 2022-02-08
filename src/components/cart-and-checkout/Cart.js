@@ -3,7 +3,7 @@ import CheckoutProduct from './CheckoutProduct';
 import { getTotalBasket } from '../../helper';
 import { BENEFITS } from '../IntroGrid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 export default function Cart() {
     const basket = useSelector(state => state.basket)
@@ -12,14 +12,20 @@ export default function Cart() {
         <section className="p-8 bg-white">
             <div className="flex flex-row gap-3 items-center">
                 <h2 className="text-2xl font-normal">Your Cart</h2>
-                <p className="text-gray-400 text-slate-500">(<span>2</span> items in your cart)</p>
+                <p className="text-gray-400 text-slate-500">
+                    (
+                        <span className="underline font-bold">
+                            {basket.length}
+                        </span> {basket.length === 1 ? 'item' : 'items'} in your cart
+                    )
+                </p>
             </div>
             <div className="mt-4 flex gap-16">
                 <div className="grow">
-                    {basket.map(item => (
+                    {basket.map((item, index) => (
                         <CheckoutProduct 
-                            key={`cart-item_${item.productId}`}
-                            id={item.id}
+                            key={`cart-item_${item.productId}_${index}`}
+                            inBasketItemId={item.id}
                             imageURL={`https://${item.imageURL}`}
                             name={item.name}
                             color={item.chosenColor}
@@ -28,19 +34,7 @@ export default function Cart() {
                             amount={item.amount}
                         />
                     ))}
-                    {/* <CheckoutProduct 
-                        id="12334445555"
-                        imageURL="https://m.media-amazon.com/images/I/71JfOX0yHMS._AC_UX522_.jpg"
-                        name="DRAY"
-                        color="blue"
-                        size="M"
-                        amount={2} 
-                        price={15000}
-                    /> */}
-                    
                 </div>
-                    
-                {/* right */}
                 <div className="">
                     <div className="py-4 px-6 bg-gray-400 rounded-sm">
                         <h3 className="uppercase text-gray-900 text-lg">Your order</h3>

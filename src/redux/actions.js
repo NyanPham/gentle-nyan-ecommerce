@@ -1,5 +1,17 @@
 import { db, auth } from '../firebase'
-import { collection, getDocs, addDoc, query, where, onSnapshot } from 'firebase/firestore' 
+import { 
+    collection, 
+    getDocs, 
+    addDoc, 
+    doc, 
+    updateDoc, 
+    query, 
+    where, 
+    onSnapshot, 
+    orderBy, 
+    serverTimestamp, 
+    deleteDoc
+} from 'firebase/firestore' 
 import { 
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword,
@@ -55,7 +67,8 @@ export function addToBasket(userId, productId, {name, imageURL, price}, chosenCo
             chosenColor,
             chosenSize,
             amount,
-            price
+            price,
+            createdAt: serverTimestamp()
         })
         const q = query(collection(db, 'baskets'), where('userId', '==', userId))
         onSnapshot(q, snapshot=> {
@@ -70,7 +83,7 @@ export function addToBasket(userId, productId, {name, imageURL, price}, chosenCo
 
 export function fetchBasket(userId) {
     return async function (dispatch) {
-        const q = query(collection(db, 'baskets'), where('userId', '==', userId))
+        const q = query(collection(db, 'baskets'), where('userId', '==', userId), orderBy('createdAt', 'desc'))
         onSnapshot(q, snapshot=> {
             const basket = snapshot.docs.map(formatDoc)
             dispatch({
@@ -78,6 +91,24 @@ export function fetchBasket(userId) {
                 payload: { basket }
             })
         })
+    }
+}
+
+export function adjustItemAmountInBasket(inBasketItemId, userId, newAmount) {
+    return async function (dispatch) {
+        const itemInBasketRef = doc(db, 'baskets', inBasketItemId)
+        await updateDoc(itemInBasketRef, {
+            amount: newAmount
+        })
+        dispatch(fetchBasket(userId))
+    }
+}
+
+export function removeItemFromBasket(inBasketItemId, userId) {
+    return async function (dispatch) {
+        const itemInBasketRef = doc(db, 'baskets', inBasketItemId)
+        await deleteDoc(itemInBasketRef)
+        dispatch(fetchBasket(userId))
     }
 }
 
