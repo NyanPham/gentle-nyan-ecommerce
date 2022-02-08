@@ -25,7 +25,6 @@ export default function ProductDetails() {
         resetMessages()
     }, [currentColor, currentSize])
     
-
     function handleAmountChange(e) {
         if (isNaN(e.target.value)) return
         if (e.target.value < 1) return 
