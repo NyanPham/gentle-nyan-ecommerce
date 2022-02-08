@@ -4,7 +4,7 @@ import {
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword,
     signOut,
-    onAuthStateChanged } from 'firebase/auth'
+    sendPasswordResetEmail } from 'firebase/auth'
 import { formatDocs } from '../helper'
 
 export const ACTIONS = {
@@ -20,8 +20,12 @@ export const ACTIONS = {
 
     LOG_IN_START: 'start-login-in',
     LOG_IN_SUCCESS: 'logged-in',
-    LOG_IN_ERROR: 'failed-log-ing',
-    SET_LOG_IN_ERROR: 'set-log-in-error'
+    LOG_IN_ERROR: 'failed-log-in',
+    SET_LOG_IN_ERROR: 'set-log-in-error',
+
+    RESET_PASSWORD_START: 'start-reset-password',
+    RESET_PASSWORD_SUCCESS: 'success-reset-password',
+    RESET_PASSWORD_ERROR: 'failed-reset-password',
 }
 
 export function fetchProducts() {
@@ -44,7 +48,7 @@ export function signUp(email, password) {
             dispatch({
                 type: ACTIONS.SIGN_UP_START
             })
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+            await createUserWithEmailAndPassword(auth, email, password)
             dispatch({
                 type: ACTIONS.SIGN_UP_SUCCESS
             })
@@ -84,5 +88,17 @@ export function logIn(email, password) {
 export function logOut() {
     return async function (dispatch) {
         await signOut(auth)
+    }
+}
+
+export function resetPassword(email) {
+    return async function (dispatch) {
+        try {
+            dispatch({ type: ACTIONS.RESET_PASSWORD_START })
+            await sendPasswordResetEmail(auth, email)
+            dispatch({ type: ACTIONS.RESET_PASSWORD_SUCCESS })
+        } catch {
+            dispatch({ type: ACTIONS.RESET_PASSWORD_ERROR })
+        }
     }
 }

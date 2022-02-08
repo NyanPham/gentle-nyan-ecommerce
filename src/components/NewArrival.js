@@ -8,7 +8,7 @@ export default function NewArrival() {
     const newArrivals = products?.filter(product => product.inNewArrival)
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-white" id="new-arrival">
             <div className="flex justify-evenly items-center bg-blue-900">
                 <div className="py-4 px-8">
                     <small className="text-blue-100 text-base">Special Promo</small>

@@ -21,7 +21,7 @@ export default function Login() {
     useEffect(() => {
         if (currentUser?.email) {
             resetValue([emailRef.current, passwordRef.current])
-            navigate('/')
+            navigate(-1)
         }
     }, [currentUser])
 
