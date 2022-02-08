@@ -11,6 +11,7 @@ import Login from './authentication/Login';
 import Signup from './authentication/Signup'
 import ForgotPassword from './authentication/ForgotPassword'
 import Cart from './cart-and-checkout/Cart'
+import Checkout from './cart-and-checkout/Checkout'
 
 function App() {
 	const dispatch = useDispatch()
@@ -38,6 +39,7 @@ function App() {
 					<Route path="/signup" element={<Signup />} />
 					<Route path="/forgot-password" element={<ForgotPassword />} />
 					<Route path="/cart" element={<><Header /><Cart /></>} />
+					<Route path="/checkout" element={<Checkout />} />
 				</Routes>
 			</Router>
 		</div>

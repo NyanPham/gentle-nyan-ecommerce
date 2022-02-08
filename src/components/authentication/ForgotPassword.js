@@ -26,10 +26,10 @@ export default function ForgotPassword() {
                 <h3 className="text-slate-500 mt-6">Forgot your password? Happens all the time. Enter your email below to reset it</h3>
                 {successMessage && <div className="text-green-500">{successMessage}</div>}
                 {error && <div className="text-red-500">{error}</div>}
-                <div className="mt-6 flex flex-col justify-center items-start">
-                    <label htmlFor="email" className="text-gray-700 text-lg">Your email</label>
+                <div className="form-group">
+                    <label htmlFor="email" className="label">Your email</label>
                     <input 
-                        className="w-full p-3 mt-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-offset-1 focus:ring-sky-400" 
+                        className="text-input" 
                         type="email" id="email" placeholder='eg.you@website.com' required={true}
                         ref={emailRef}
                     />
@@ -37,7 +37,7 @@ export default function ForgotPassword() {
                 
                 <button 
                     type="submit"
-                    className="py-1.5 px-2.5 mt-8 mb-6 w-full bg-sky-500 text-lg text-white rounded-sm hover:bg-sky-400 focus:bg-sky-600 transition disabled:bg-slate-300"
+                    className="submit-button"
                     disabled={loading || successMessage}
                 >
                     Next

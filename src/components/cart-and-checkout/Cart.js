@@ -4,9 +4,11 @@ import { getTotalBasket } from '../../helper';
 import { BENEFITS } from '../IntroGrid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 export default function Cart() {
     const basket = useSelector(state => state.basket)
+    const currentUser = useSelector(state => state.currentUser)
 
     return (
         <section className="p-8 bg-white">
@@ -43,7 +45,9 @@ export default function Cart() {
                             Total:
                             <span>VND {getTotalBasket(basket)}</span>
                         </div>
-                        <button className="w-full mt-2 py-2 text-center text-gray-200 bg-gray-900 rounded-md hover:bg-gray-800 active:ring active:ring-gray-200 transition">Proceed to checkout</button>
+                        <Link to={`${currentUser ? '/checkout' : '/login'}`}>
+                            <button className="w-full mt-2 py-2 text-center text-gray-200 bg-gray-900 rounded-md hover:bg-gray-800 active:ring active:ring-gray-200 transition">Proceed to checkout</button>
+                        </Link>
                     </div>
                     <div className="mt-4 flex flex-col items-start">
                         {BENEFITS.map((benefit, index) => {

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { logIn } from '../../redux/actions';
 import { resetValue } from '../../helper';
+import TextInput from '../TextInput'
 
 export default function Login() {
     const emailRef = useRef()
@@ -38,25 +39,25 @@ export default function Login() {
                 <h2 className="text-3xl text-gray-900 font-bold">Welcome!</h2>
                 <h3 className="text-slate-500 mt-6">Enter your info below to login</h3>
                 {error && <p className="text-red-500">{error}</p>}
-                <div className="mt-6 flex flex-col justify-center items-start">
-                    <label htmlFor="email" className="text-gray-700 text-lg">Your email</label>
+                <div className="form-group">
+                    <label htmlFor="email" className="label">Your email</label>
                     <input 
-                        className="w-full p-3 mt-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-offset-1 focus:ring-sky-400" 
+                        className="text-input" 
                         type="email" id="email" placeholder='eg.you@website.com' required
                         ref={emailRef}
                     />
                 </div>
-                <div className="mt-6 flex flex-col justify-center items-start">
-                    <label htmlFor="password" className="text-gray-700 text-lg">Your password</label>
+                <div className="form-group">
+                    <label htmlFor="password" className="label">Your password</label>
                     <input 
-                        className="w-full p-3 mt-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-offset-1 focus:ring-sky-400"                     
+                        className="text-input"                     
                         type="password" id="password" placeholder="eg.yourpassword@a234^" required
                         ref={passwordRef}
                     />
                 </div>
                 
                 <button 
-                    className="py-1.5 px-2.5 mt-8 mb-6 w-full bg-sky-500 text-lg text-white rounded-sm hover:bg-sky-400 focus:bg-sky-600 transition disabled:bg-slate-300"
+                    className="submit-button"
                     type="submit"
                     disabled={loading}
                 >
