@@ -10,7 +10,6 @@ export default function PaymentFailure() {
                 <div className="py-3 px-4 bg-red-500 rounded-full flex justify-center items-center">
                     <FontAwesomeIcon icon={faTimes} className="text-3xl text-white"/>
                 </div>
-                
                 <div>
                     <h2 className="text-2xl font-bold">Failure</h2>
                     <p>
