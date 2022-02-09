@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import { auth } from '../firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
-import { ACTIONS, fetchBasket } from '../redux/actions'
+import { ACTIONS, fetchBasket, fetchOrders } from '../redux/actions'
 import Header from "./Header";
 import Home from "./Home";
 import Footer from './Footer';
@@ -16,6 +16,7 @@ import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import PaymentSuccess from './cart-and-checkout/PaymentSuccess'
 import PaymentFailure from './cart-and-checkout/PaymentFailure'
+import OrdersList from './cart-and-checkout/OrdersList'
 
 const stripePromise = loadStripe('pk_test_51KPg5nHUOdMFaBHmnqMPEALXISXFyDNA6Fq2xYB6rfdVBkfgGDo2VCcq3jllLPKUMOD9SpJvYepxB3kCWYpmEDLH00o0vEdn9h')
 
@@ -28,6 +29,7 @@ function App() {
 				payload: { currentUser: user }
 			})
 			dispatch(fetchBasket(user.uid))
+			dispatch(fetchOrders(user.uid))
 		} else {
 			dispatch({
 				type: ACTIONS.LOG_OUT
@@ -48,6 +50,7 @@ function App() {
 					<Route path="/checkout" element={ <Elements stripe={stripePromise}><Checkout /></Elements>}/>
 					<Route path="/checkout/payment-success" element={<PaymentSuccess />}/>
 					<Route path="/checkout/payment-failure" element={<PaymentFailure />}/>
+					<Route path="/orders" element={<><Header /><OrdersList /></>}/>
 				</Routes>
 			</Router>
 		</div>

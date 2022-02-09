@@ -35,9 +35,9 @@ export default function Footer() {
             </div>
             <form onSubmit={handleNewsletterSub}>
                 <h2 className="text-blue-100 text-lg uppercase tracking-wider mb-5">Join our newsletter now</h2>
-                <input
+                {/* <input
                     className="py-2 px-3 bg-transparent text-gray-100 text-base outline-none border border-blue-100 rounded-md focus:ring focus:ring-blue-100 transition" 
-                    placeholder="Email Address"/>
+                    placeholder="Email Address"/> */}
                 <button 
                     className="p-3 bg-gray-800 text-gray-100 ml-2 rounded-md hover:bg-gray-700 focus:bg-gray-900 tracking-wide transition"
                     type="submit"

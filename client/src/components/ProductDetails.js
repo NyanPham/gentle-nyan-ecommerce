@@ -15,7 +15,7 @@ const COLOR_MAP = {
     green: 'bg-green-500',
     pink: 'bg-pink-500',
     indigo: 'bg-indigo-500',
-    sky: 'bg-sky-5',
+    sky: 'bg-sky-500',
     white: 'bg-white'
 }
 

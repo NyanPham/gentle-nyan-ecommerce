@@ -18,15 +18,15 @@ export default function Header() {
     }
 
     return (
-        <header className="w-100">
+        <header className="w-100 relative">
             <div className="px-8 py-4 flex justify-between w-100 bg-gray-800 text-white">
-                <div className="flex space-x-2 items-center text-base">
+                <div className="hidden space-x-2 items-center text-base md:flex">
                     <FontAwesomeIcon icon={faFacebookSquare} className="text-2xl"/>
                     <FontAwesomeIcon icon={faTwitterSquare} className="text-2xl"/>
                     <FontAwesomeIcon icon={faInstagramSquare} className="text-2xl"/>
                 </div>
-                <div className="flex gap-2">
-                    <p className="mr-6">{currentUser?.email}</p>
+                <div className="flex grow justify-between gap-2 md:justify-end items-center">
+                    {currentUser && <Link to="/orders" className="mr-6">{currentUser?.email}</Link>}
                     {currentUser
                         ? (<button className='flex space-x-2 items-center text-base' onClick={handleLogOut}>
                                 <FontAwesomeIcon icon={faUser} className="text-2xl"/>
@@ -39,12 +39,10 @@ export default function Header() {
                             </Link>
                         )
                     }
-                    
                 </div>
-                
             </div>
             <div className="px-8 py-4 bg-white flex justify-between items-center">
-                <div className="flex flex-row gap-3">
+                <div className="hidden flex-row gap-3 sm:flex">
                     <div className="text-base text-blue-300 flex justify-center items-center" >
                         <FontAwesomeIcon icon={faPhoneVolume} className="text-3xl"/>
                     </div> 
@@ -54,7 +52,7 @@ export default function Header() {
                     </div>
                 </div>
                 <div className="flex flex-col gap-2 relative text-center">
-                    <div className="logo-container">
+                    <div className="hidden logo-container sm:inline-block">
                         <img 
                             className=""
                             src={logo}
@@ -63,11 +61,13 @@ export default function Header() {
                     </div>
                     <p className="text-3xl font-md tracking-12 pt-5 z-10">GentleNyan</p>
                 </div>
-                <div className="flex flex-row gap-3">
+                <div className="flex flex-row gap-5">
                     <FontAwesomeIcon icon={faSearch} className="function-icon"/>
-                    <Link to={`${currentUser ? '/cart' : '/login'}`}>
+                    <Link to={`${currentUser ? '/cart' : '/login'}`} className="relative">
                         <FontAwesomeIcon icon={faShoppingCart} className="function-icon"/>
-                        {basket?.length}
+                        <div className="w-5 h-5 bg-gray-800 rounded-full flex justify-center items-center text-white text-sm absolute top-4 -left-2">
+                            {basket?.length}
+                        </div>
                     </Link>
                 </div>
             </div>

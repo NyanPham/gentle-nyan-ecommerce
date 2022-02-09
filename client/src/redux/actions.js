@@ -22,6 +22,7 @@ import { formatDoc, formatDocs } from '../helper'
 export const ACTIONS = {
     FETCH_PRODUCTS: 'fetch-products',
     FETCH_BASKET: 'add-to-basket',
+    EMPTY_BASKET: 'empty-basket',
 
     SIGN_UP: 'sign-up',
     LOG_IN: 'sign-in',
@@ -40,6 +41,8 @@ export const ACTIONS = {
     RESET_PASSWORD_START: 'start-reset-password',
     RESET_PASSWORD_SUCCESS: 'success-reset-password',
     RESET_PASSWORD_ERROR: 'failed-reset-password',
+
+    GET_ORDERS: 'get-order'
 }
 
 export function fetchProducts() {
@@ -112,6 +115,41 @@ export function removeItemFromBasket(inBasketItemId, userId) {
     }
 }
 
+export function emptyBasket(userId) {
+    return async function (dispatch) {
+        const itemsInBasketQuery = query(collection(db, 'baskets'), where('userId', '==', userId))
+        const snapshot = await getDocs(itemsInBasketQuery)
+        const itemsInBasket = snapshot.docs.map(formatDoc)
+        
+        for (let item of itemsInBasket) {
+            const docRef = doc(db, 'baskets', item.id)
+            await deleteDoc(docRef)
+        }
+
+        dispatch({
+            type: ACTIONS.EMPTY_BASKET
+        })
+    }
+}
+
+export function fetchOrders(userId) {
+    return async function (dispatch) {
+        const q = query(collection(db, 'orders'), where('userId', '==', userId), orderBy('createdAt', 'desc'))
+        onSnapshot(q, snapshot => {
+            const orders = snapshot.docs.map(formatDoc)
+            if (orders?.length === 0) return 
+            dispatch({
+                type: ACTIONS.GET_ORDERS,
+                payload: {
+                    orders
+                }
+            })
+        })
+    }
+}
+
+
+
 export function signUp(email, password) {
     return async function (dispatch) {    
         try {
@@ -170,5 +208,21 @@ export function resetPassword(email) {
         } catch {
             dispatch({ type: ACTIONS.RESET_PASSWORD_ERROR })
         }
+    }
+}
+
+
+export function createAnOrder({ basket, created, amount, orderId, userId }) {
+    return async function (dispatch) {
+        const orderDoc = collection(db, 'orders')
+        await addDoc(orderDoc, {
+            userId,
+            orderId,
+            amount, 
+            createdAt: created,
+            items: basket
+        })
+
+
     }
 }
