@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactDOM  from 'react-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { useParams, useNavigate } from 'react-router-dom'
@@ -7,8 +8,9 @@ import { collection, doc, getDoc, addDoc } from 'firebase/firestore'
 import { formatDoc } from '../helper'
 import { useSelector, useDispatch } from 'react-redux'  
 import { addToBasket } from '../redux/actions';
+import ToastContainer from './toasts/ToastContainer';
 
-const COLOR_MAP = {
+export const COLOR_MAP = {
     blue: 'bg-blue-500',
     red: 'bg-red-500',
     gray: 'bg-gray-500',
@@ -16,7 +18,9 @@ const COLOR_MAP = {
     pink: 'bg-pink-500',
     indigo: 'bg-indigo-500',
     sky: 'bg-sky-500',
-    white: 'bg-white'
+    white: 'bg-white',
+    brown: 'bg-amber-800',
+    black: 'bg-gray-900'
 }
 
 export default function ProductDetails() {
@@ -31,10 +35,11 @@ export default function ProductDetails() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const query = doc(db, 'shirts', productId)
-        getDoc(query).then((doc) => {
+        const itemRef = doc(db, 'items', productId)
+        getDoc(itemRef).then(doc => {
             setCurrentProduct(formatDoc(doc))
         })
+
     }, [productId])
 
     useEffect(() => {
@@ -107,106 +112,109 @@ export default function ProductDetails() {
     }
 
     return (
-         <div className="p-12 flex flex-col items-start gap-12 bg-gray-200 sm:flex-row">
-             <div className="w-full flex justify-center items-center sm:w-2/4">
-                {currentProduct?.imageURL && (
-                    <img 
-                    className="w-72" 
-                    src={currentProduct.imageURL}
-                />
-                )} 
-             </div>
-             <div className="w-full sm:w-2/4">
-                <h3 className="text-gray-900 text-2xl">{currentProduct?.name}</h3>
-                {currentProduct?.outOfStock 
-                    ? <p className="text-red-500 mt-2">Out of stock</p>
-                    : <p className="text-green-500 mt-2">In stock</p>
-                }
-                <div className="mt-2 pb-4 flex w-full border-b border-gray-300">
-                    <div className="flex items-center gap-3">
-                        <span className="font-bold underline">{currentProduct?.rating}</span>
-                        <div className="flex pr-8 border-r-2 border-gray-800 gap-0.5 sm:pr-16">
-                            {currentProduct?.rating && (
-                                Array(currentProduct.rating).fill().map((_, index) => 
-                                    <FontAwesomeIcon 
-                                        key={`yellow_${index}`} 
-                                        icon={faStar}
-                                        className="text-yellow-500"
-                                    />
-                                ).concat(Array(5 - currentProduct.rating).fill().map((_, index) => (
-                                    <FontAwesomeIcon 
-                                        key={`gray_${index}`}
-                                        icon={faStar}
-                                        className="text-gray-500"
-                                    />
-                                )))
-                            )}
+        <>
+            <div className="p-12 flex flex-col items-start gap-12 bg-gray-200 sm:flex-row">
+                <div className="w-full flex justify-center items-center sm:w-2/4">
+                    {currentProduct?.imageURL && (
+                        <img 
+                        className="w-72" 
+                        src={currentProduct.imageURL}
+                    />
+                    )} 
+                </div>
+                <div className="w-full sm:w-2/4">
+                    <h3 className="text-gray-900 text-2xl">{currentProduct?.name}</h3>
+                    {currentProduct?.outOfStock 
+                        ? <p className="text-red-500 mt-2">Out of stock</p>
+                        : <p className="text-green-500 mt-2">In stock</p>
+                    }
+                    <div className="mt-2 pb-4 flex w-full border-b border-gray-300">
+                        <div className="flex items-center gap-3">
+                            <span className="font-bold underline">{currentProduct?.rating}</span>
+                            <div className="flex pr-8 border-r-2 border-gray-800 gap-0.5 sm:pr-16">
+                                {currentProduct?.rating && (
+                                    Array(currentProduct.rating).fill().map((_, index) => 
+                                        <FontAwesomeIcon 
+                                            key={`yellow_${index}`} 
+                                            icon={faStar}
+                                            className="text-yellow-500"
+                                        />
+                                    ).concat(Array(5 - currentProduct.rating).fill().map((_, index) => (
+                                        <FontAwesomeIcon 
+                                            key={`gray_${index}`}
+                                            icon={faStar}
+                                            className="text-gray-500"
+                                        />
+                                    )))
+                                )}
+                            </div>
                         </div>
-                    </div>
-                    <div className="ml-8 sm:ml-16">
-                        <span className="font-bold underline mr-2">{currentProduct?.soldNumber}</span>
-                        <span>sold</span>
-                    </div>
-                </div> 
-                <div className="mt-4 space-y-4">
-                    <h3 className="text-red-500 text-2xl">VND {currentProduct?.price}</h3>
-                    <div className='space-y-2'>
-                        <h4>Color</h4>
-                        {currentProduct.colors?.map((color, index) => {
-                            return (
-                                <div 
-                                    className={`${COLOR_MAP[color]} ${currentColor === color ? ' border-2 border-black' : ''} w-7 h-7 rounded-full inline-block mr-2 cursor-pointer`} 
-                                    key={`color_${index}`}
-                                    onClick={() => {setCurrentColor(color)}}
-                                />
-                            )
-                        })}
-                    </div>
-                    <div className="space-y-2">
-                        <h4>Size</h4>
-                        <div className="flex">
-                            {currentProduct?.sizes?.map((size, index) => {
+                        <div className="ml-8 sm:ml-16">
+                            <span className="font-bold underline mr-2">{currentProduct?.soldNumber}</span>
+                            <span>sold</span>
+                        </div>
+                    </div> 
+                    <div className="mt-4 space-y-4">
+                        <h3 className="text-red-500 text-2xl">VND {currentProduct?.price}</h3>
+                        <div className='space-y-2'>
+                            <h4>Color</h4>
+                            {currentProduct.colors?.map((color, index) => {
                                 return (
                                     <div 
-                                        className={`${currentSize === size ? 'border-2 border-gray-900' : null} w-8 h-8 rounded-sm inline-block uppercase bg-gray-400 flex justify-center items-center mr-2 cursor-pointer`}
-                                        key={`size${index}`}
-                                        onClick={() => {setCurrentSize(size)}}
-                                    >
-                                        {size}
-                                    </div>
+                                        className={`${COLOR_MAP[color]} ${currentColor === color ? ' border-2 border-black' : ''} w-7 h-7 rounded-full inline-block mr-2 cursor-pointer`} 
+                                        key={`color_${index}`}
+                                        onClick={() => {setCurrentColor(color)}}
+                                    />
                                 )
                             })}
                         </div>
-                    </div>
-                    <form className="pt-4">
-                        <div className="flex gap-2">
-                            <button
-                                onClick={amountDecrement}
-                            >-</button>
-                            <input 
-                                className="w-8 py-0.5 px-2 text-center outline-none border border-gray-700 rounded-sm"
-                                type="text" 
-                                inputMode="numeric" 
-                                value={currentAmount} 
-                                onChange={handleAmountChange}
-                            />
-                            <button
-                                onClick={amountIncrement}
-                            >+</button>
+                        <div className="space-y-2">
+                            <h4>Size</h4>
+                            <div className="flex">
+                                {currentProduct?.sizes?.map((size, index) => {
+                                    return (
+                                        <div 
+                                            className={`${currentSize === size ? 'border-2 border-gray-900' : null} w-8 h-8 rounded-sm inline-block uppercase bg-gray-400 flex justify-center items-center mr-2 cursor-pointer`}
+                                            key={`size${index}`}
+                                            onClick={() => {setCurrentSize(size)}}
+                                        >
+                                            {size}
+                                        </div>
+                                    )
+                                })}
+                            </div>
                         </div>
-                        <button 
-                            className="py-2 px-3 bg-gray-900 text-gray-200 mt-8 mb-2 outline-none rounded-sm hover:bg-gray-700 transition" 
-                            type="submit"
-                            onClick={handleAddToCart}
-                        >
-                            Add to Cart
-                        </button>
-                        {[...Object.keys(messages)].map(error => {
-                            return <div key={error} className="text-red-500">{messages[error]}</div>
-                        })}
-                    </form>
+                        <form className="pt-4">
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={amountDecrement}
+                                >-</button>
+                                <input 
+                                    className="w-8 py-0.5 px-2 text-center outline-none border border-gray-700 rounded-sm"
+                                    type="text" 
+                                    inputMode="numeric" 
+                                    value={currentAmount} 
+                                    onChange={handleAmountChange}
+                                />
+                                <button
+                                    onClick={amountIncrement}
+                                >+</button>
+                            </div>
+                            <button 
+                                className="py-2 px-3 bg-gray-900 text-gray-200 mt-8 mb-2 outline-none rounded-sm hover:bg-gray-700 transition disabled:bg-slate-500" 
+                                type="submit"
+                                onClick={handleAddToCart}
+                                disabled={currentProduct?.outOfStock}
+                            >
+                                Add to Cart
+                            </button>
+                            {[...Object.keys(messages)].map(error => {
+                                return <div key={error} className="text-red-500">{messages[error]}</div>
+                            })}
+                        </form>
+                    </div>
                 </div>
-             </div>
-         </div>
+            </div>
+         </>
      )
 }

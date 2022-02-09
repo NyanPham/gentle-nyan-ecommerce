@@ -42,17 +42,22 @@ export const ACTIONS = {
     RESET_PASSWORD_SUCCESS: 'success-reset-password',
     RESET_PASSWORD_ERROR: 'failed-reset-password',
 
-    GET_ORDERS: 'get-order'
+    GET_ORDERS: 'get-order',
+
+    ADD_TOAST: 'add-toast',
+    DELETE_TOAST: 'delete-toast'
 }
 
 export function fetchProducts() {
-    return function (dispatch) {
-        const docRef = collection(db, 'shirts')
-        getDocs(docRef).then(res => {
+    return async function (dispatch) {
+
+        const itemsRef = collection(db, 'items')
+
+        getDocs(itemsRef).then(res => {
             dispatch({
                 type: ACTIONS.FETCH_PRODUCTS,
                 payload: {
-                    shirts: formatDocs(res.docs)
+                    products: formatDocs(res.docs)
                 }
             })
         })
@@ -73,14 +78,25 @@ export function addToBasket(userId, productId, {name, imageURL, price}, chosenCo
             price,
             createdAt: serverTimestamp()
         })
-        const q = query(collection(db, 'baskets'), where('userId', '==', userId))
-        onSnapshot(q, snapshot=> {
-            const basket = snapshot.docs.map(formatDoc)
-            dispatch({
-                type: ACTIONS.FETCH_BASKET,
-                payload: { basket }
-            })
-        })
+        dispatch(fetchBasket(userId))
+        dispatch(addToast(name, imageURL, chosenColor, chosenSize, amount, price))
+    }
+}
+
+function addToast(name, imageURL, chosenColor, chosenSize, amount, price) {
+    return {
+        type: ACTIONS.ADD_TOAST,
+        payload: {
+            newToast: {
+                name,
+                imageURL,
+                chosenColor,
+                chosenSize,
+                amount, 
+                price,
+                toastedAt: Date.now()
+            }
+        }
     }
 }
 
@@ -137,7 +153,14 @@ export function fetchOrders(userId) {
         const q = query(collection(db, 'orders'), where('userId', '==', userId), orderBy('createdAt', 'desc'))
         onSnapshot(q, snapshot => {
             const orders = snapshot.docs.map(formatDoc)
-            if (orders?.length === 0) return 
+            
+            if (orders?.length === 0) return dispatch({
+                type: ACTIONS.GET_ORDERS,
+                payload: {
+                    orders: []
+                }
+            })
+
             dispatch({
                 type: ACTIONS.GET_ORDERS,
                 payload: {
@@ -222,7 +245,5 @@ export function createAnOrder({ basket, created, amount, orderId, userId }) {
             createdAt: created,
             items: basket
         })
-
-
     }
 }

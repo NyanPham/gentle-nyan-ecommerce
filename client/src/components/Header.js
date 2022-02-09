@@ -51,7 +51,7 @@ export default function Header() {
                         <p className="text-base text-gray-900">0947-xxx-xxx</p>
                     </div>
                 </div>
-                <div className="flex flex-col gap-2 relative text-center">
+                <Link to="/" className="flex flex-col gap-2 relative text-center hover:-translate-y-1">
                     <div className="hidden logo-container sm:inline-block">
                         <img 
                             className=""
@@ -60,14 +60,14 @@ export default function Header() {
                         />
                     </div>
                     <p className="text-3xl font-md tracking-12 pt-5 z-10">GentleNyan</p>
-                </div>
+                </Link>
                 <div className="flex flex-row gap-5">
                     <FontAwesomeIcon icon={faSearch} className="function-icon"/>
                     <Link to={`${currentUser ? '/cart' : '/login'}`} className="relative">
                         <FontAwesomeIcon icon={faShoppingCart} className="function-icon"/>
-                        <div className="w-5 h-5 bg-gray-800 rounded-full flex justify-center items-center text-white text-sm absolute top-4 -left-2">
+                        {currentUser && <div className="w-5 h-5 bg-gray-800 rounded-full flex justify-center items-center text-white text-sm absolute top-4 -left-2">
                             {basket?.length}
-                        </div>
+                        </div>}
                     </Link>
                 </div>
             </div>

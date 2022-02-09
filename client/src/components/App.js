@@ -17,9 +17,9 @@ import { loadStripe } from '@stripe/stripe-js'
 import PaymentSuccess from './cart-and-checkout/PaymentSuccess'
 import PaymentFailure from './cart-and-checkout/PaymentFailure'
 import OrdersList from './cart-and-checkout/OrdersList'
+import ToastContainer from './toasts/ToastContainer'
 
 const stripePromise = loadStripe('pk_test_51KPg5nHUOdMFaBHmnqMPEALXISXFyDNA6Fq2xYB6rfdVBkfgGDo2VCcq3jllLPKUMOD9SpJvYepxB3kCWYpmEDLH00o0vEdn9h')
-
 function App() {
 	const dispatch = useDispatch()
 	onAuthStateChanged(auth, user => {
@@ -38,22 +38,27 @@ function App() {
 	})
 
 	return (
-		<div className="w-full min-h-screen bg-gray-200 relative">
-			<Router>
-				<Routes>
-					<Route path="/" element={ ( <><Header /><Home /><Footer /></>)} />
-					<Route path="/product/:productId" element={ <><Header/><ProductDetails /></>} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/signup" element={<Signup />} />
-					<Route path="/forgot-password" element={<ForgotPassword />} />
-					<Route path="/cart" element={<><Header /><Cart /></>} />
-					<Route path="/checkout" element={ <Elements stripe={stripePromise}><Checkout /></Elements>}/>
-					<Route path="/checkout/payment-success" element={<PaymentSuccess />}/>
-					<Route path="/checkout/payment-failure" element={<PaymentFailure />}/>
-					<Route path="/orders" element={<><Header /><OrdersList /></>}/>
-				</Routes>
-			</Router>
-		</div>
+		<>
+			<div className="w-full min-h-screen bg-gray-200 relative">
+				<Router>
+					<Routes>
+						<Route path="/" element={ ( <><Header /><Home /><Footer /></>)} />
+						<Route path="/product/:productId" element={ <><Header/><ProductDetails /></>} />
+						<Route path="/login" element={<Login />} />
+						<Route path="/signup" element={<Signup />} />
+						<Route path="/forgot-password" element={<ForgotPassword />} />
+						<Route path="/cart" element={<><Header /><Cart /></>} />
+						<Route path="/checkout" element={ <Elements stripe={stripePromise}><Checkout /></Elements>}/>
+						<Route path="/checkout/payment-success" element={<PaymentSuccess />}/>
+						<Route path="/checkout/payment-failure" element={<PaymentFailure />}/>
+						<Route path="/orders" element={<><Header /><OrdersList /></>}/>
+					</Routes>
+				</Router>
+			</div>
+			<div id="toasts-container">
+				<ToastContainer />
+			</div>
+		</>
 	);
 }
 
