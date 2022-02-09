@@ -22,7 +22,7 @@ export default function Cart() {
                     )
                 </p>
             </div>
-            <div className="mt-4 flex gap-16">
+            <div className="mt-4 flex flex-col gap-10 lg:flex-row">
                 <div className="grow">
                     {basket.map((item, index) => (
                         <CheckoutProduct 

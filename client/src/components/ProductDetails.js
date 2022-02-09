@@ -107,8 +107,8 @@ export default function ProductDetails() {
     }
 
     return (
-         <div className="p-12 flex flex-row items-start gap-12 bg-gray-200">
-             <div className="w-2/4 flex justify-center items-center">
+         <div className="p-12 flex flex-col items-start gap-12 bg-gray-200 sm:flex-row">
+             <div className="w-full flex justify-center items-center sm:w-2/4">
                 {currentProduct?.imageURL && (
                     <img 
                     className="w-72" 
@@ -116,7 +116,7 @@ export default function ProductDetails() {
                 />
                 )} 
              </div>
-             <div className="w-2/4">
+             <div className="w-full sm:w-2/4">
                 <h3 className="text-gray-900 text-2xl">{currentProduct?.name}</h3>
                 {currentProduct?.outOfStock 
                     ? <p className="text-red-500 mt-2">Out of stock</p>
@@ -125,7 +125,7 @@ export default function ProductDetails() {
                 <div className="mt-2 pb-4 flex w-full border-b border-gray-300">
                     <div className="flex items-center gap-3">
                         <span className="font-bold underline">{currentProduct?.rating}</span>
-                        <div className="flex pr-16 border-r-2 border-gray-800 gap-0.5">
+                        <div className="flex pr-8 border-r-2 border-gray-800 gap-0.5 sm:pr-16">
                             {currentProduct?.rating && (
                                 Array(currentProduct.rating).fill().map((_, index) => 
                                     <FontAwesomeIcon 
@@ -143,7 +143,7 @@ export default function ProductDetails() {
                             )}
                         </div>
                     </div>
-                    <div className="ml-16">
+                    <div className="ml-8 sm:ml-16">
                         <span className="font-bold underline mr-2">{currentProduct?.soldNumber}</span>
                         <span>sold</span>
                     </div>

@@ -96,8 +96,8 @@ export default function Checkout() {
     
 
     return (
-        <section className="p-8 bg-white flex gap-8">
-            <div className="w-2/4 items-center">
+        <section className="p-8 bg-white flex flex-col gap-8 lg:flex-row">
+            <div className="items-center lg:w-2/4">
                 <h2 className="text-2xl font-normal">Your Cart</h2>
                 <p className="text-gray-400 text-slate-500">
                     (
@@ -180,7 +180,7 @@ export default function Checkout() {
                     <button type="submit" ref={submitBtnRef} hidden={true} />
                 </form>
             </div>
-            <div className="w-2/4 flex flex-col space-y-4">
+            <div className="flex flex-col space-y-4 lg:w-2/4">
                 <div>
                     {basket?.map((item, index) => (
                         <CheckoutProduct 
@@ -192,6 +192,7 @@ export default function Checkout() {
                             size={item.chosenSize}
                             amount={item.amount}
                             price={item.price}
+                            isOnPayment={true}
                         />
                     ))}
                 </div>

@@ -12,7 +12,7 @@ const TESTIMONIES = [
 
 export default function Testimonials() {
     return (
-        <div className="h-screen bg-gray-200 py-6 px-8">
+        <div className="bg-gray-200 py-10 px-8">
             <h2 className="my-4 text-3xl text-gray-900 text-center font-bold uppercase tracking-wide">Customer Testimonials</h2>
             {TESTIMONIES?.map(testimonial => (
                 <Testimonial key={testimonial.name} {...testimonial}/>

@@ -9,7 +9,7 @@ export default function Home() {
     return (
         <>
             <Hero />
-            {/* <IntroGrid /> */}
+            <IntroGrid />
             <FeaturedProducts />
             <NewArrival />
             <Testimonials />
