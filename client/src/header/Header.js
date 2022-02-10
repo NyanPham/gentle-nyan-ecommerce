@@ -18,7 +18,7 @@ export default function Header() {
     }
 
     return (
-        <header className="w-100 relative">
+        <header className="w-100">
             <div className="px-8 py-4 flex justify-between w-100 bg-gray-800 text-white">
                 <div className="hidden space-x-2 items-center text-base md:flex">
                     <FontAwesomeIcon icon={faFacebookSquare} className="text-2xl"/>

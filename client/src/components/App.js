@@ -47,7 +47,7 @@ function App() {
 
 	return (
 		<>
-			<div className="w-full min-h-screen bg-gray-200">
+			<div className="w-full min-h-screen bg-gray-200 relative">
 				<Router>
 					<Routes>
 						<Route path="/" element={ ( <><Header /><Home /><Footer /></>)} />

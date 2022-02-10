@@ -46,7 +46,7 @@ export default function Navbar() {
                 <NavLink className="navlink" to="/" onClick={handleNavLinkClick}>Contact us</NavLink>
             </div>
             <button className="fixed top-36 right-5 w-7 h-7 bg-gray-900 rounded-sm flex justify-center items-center z-50 sm:hidden"
-                onClick={openMenu}
+                onClick={() => setOpen(prevOpen => !prevOpen)}
             >
                 <span className="absolute w-4 h-0.5 bg-white -translate-y-1.5"></span>
                 <span className="absolute w-4 h-0.5 bg-white"></span>

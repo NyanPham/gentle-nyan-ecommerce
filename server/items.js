@@ -359,8 +359,8 @@ const items =
         "category": "footwear"
     },
     {
-        "imageURL": "https://unsplash.com/WlB8TsI_th0",
-        "name": " Waterproof Surge Toe Boot",
+        "imageURL": "https://source.unsplash.com/WlB8TsI_th0",
+        "name": " Waterproof Surge Boot",
         "code": "WP-ROC",
         "rating": 4,
         "soldNumber": 87,
