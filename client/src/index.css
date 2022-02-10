@@ -58,4 +58,16 @@
     .submit-button {
         @apply py-1.5 px-2.5 mt-8 mb-6 w-full bg-sky-500 text-lg text-white rounded-sm hover:bg-sky-400 focus:bg-sky-600 transition disabled:bg-slate-300
     }
+
+    .show-btn {
+        @apply mx-auto mt-8 py-1.5 px-3 text-gray-200 text-lg bg-blue-500 hover:-translate-y-1 hover:bg-blue-400 active:bg-blue-600 transform transition rounded-sm
+    }
+
+    .showroom {
+        @apply py-8 px-16 bg-gray-200 flex flex-col justify-center
+    }
+
+    .product-grid {
+        @apply grid grid-cols-1 gap-7 mx-auto justify-center items-center flex-wrap mt-8 text-center sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4
+    }
 }

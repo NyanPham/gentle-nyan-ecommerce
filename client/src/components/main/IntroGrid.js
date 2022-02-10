@@ -1,10 +1,10 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTruck, faBoxOpen, faHandHoldingUsd } from '@fortawesome/free-solid-svg-icons'
-import manSunglasses from '../assets/glasses.jpg'
-import manJump from '../assets/man-jump.png'
-import manShirt from '../assets/man-shirt.jpg'
-import shoes from '../assets/shoes.jpg'
+import manSunglasses from '../../assets/glasses.jpg'
+import manJump from '../../assets/man-jump.png'
+import manShirt from '../../assets/man-shirt.jpg'
+import shoes from '../../assets/shoes.jpg'
 
 export const BENEFITS = [
     {

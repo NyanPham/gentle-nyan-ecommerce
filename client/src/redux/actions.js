@@ -64,6 +64,22 @@ export function fetchProducts() {
     }
 }
 
+export function fetchProductsFromServer() {
+    return async function (dispatch) {
+        const response = await fetch('http://localhost:4242/get-items', {
+            method: "GET",
+            headers: { "Content-Type": "application/json"},
+        })
+        const items = await response.json()
+        dispatch({
+            type: ACTIONS.FETCH_PRODUCTS,
+                payload: {
+                    products: items.items
+            }
+        })
+    }
+}
+
 export function addToBasket(userId, productId, {name, imageURL, price}, chosenColor, chosenSize, amount) {
     return async function (dispatch) {
         const addBasketDoc = collection(db, 'baskets')

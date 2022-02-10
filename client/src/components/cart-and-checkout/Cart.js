@@ -1,7 +1,7 @@
 import React from 'react';
 import CheckoutProduct from './CheckoutProduct';
 import { getTotalBasket } from '../../helper';
-import { BENEFITS } from '../IntroGrid'
+import { BENEFITS } from '../main/IntroGrid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -14,7 +14,7 @@ export default function Cart() {
         <section className="p-8 bg-white">
             <div className="flex flex-row gap-3 items-center">
                 <h2 className="text-2xl font-normal">Your Cart</h2>
-                <p className="text-gray-400 text-slate-500">
+                <p className="text-slate-500">
                     (
                         <span className="underline font-bold">
                             {basket.length}

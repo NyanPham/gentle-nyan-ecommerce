@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM  from 'react-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { useParams, useNavigate } from 'react-router-dom'
-import { db } from '../firebase'
-import { collection, doc, getDoc, addDoc } from 'firebase/firestore'
-import { formatDoc } from '../helper'
+import { db } from '../../firebase'
+import { doc, getDoc } from 'firebase/firestore'
+import { formatDoc } from '../../helper'
 import { useSelector, useDispatch } from 'react-redux'  
-import { addToBasket } from '../redux/actions';
-import ToastContainer from './toasts/ToastContainer';
+import { addToBasket } from '../../redux/actions';
 
 export const COLOR_MAP = {
     blue: 'bg-blue-500',
@@ -35,13 +33,26 @@ export default function ProductDetails() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const itemRef = doc(db, 'items', productId)
-        getDoc(itemRef).then(doc => {
-            setCurrentProduct(formatDoc(doc))
-        })
+        //firebase failed, switch to nodejs
+        // const itemRef = doc(db, 'items', productId)
+        // getDoc(itemRef).then(doc => {
+        //     setCurrentProduct(formatDoc(doc))
+        // })
+
+        const getProductFromServer = async () => {
+            const response = await fetch('/retrieve-item', {
+                method: 'POST',
+                headers: { "Content-Type": "application/json"},
+                body: JSON.stringify({productId})
+            })
+            const item = await response.json()
+            setCurrentProduct(item)
+        }
+
+        getProductFromServer()
 
     }, [productId])
-
+    
     useEffect(() => {
         resetMessages()
     }, [currentColor, currentSize])

@@ -1,4 +1,5 @@
 require('dotenv').config()
+const items = require('./items')
 
 const express = require('express')
 const cors = require('cors')
@@ -16,6 +17,7 @@ function getItemsTotalAmount(items) {
     return total
 }
 
+console.log(items)
 
 app.post('/make-payment-intent', async(req, res) => {
     const items = req.body.checkoutItems
@@ -31,7 +33,16 @@ app.post('/make-payment-intent', async(req, res) => {
     } catch (e) {
         console.error(e.error)
     }
+})
 
+app.get('/get-items', (req, res) => {
+    res.send({items})
+})
+
+app.post('/retrieve-item', (req, res) => {
+    const itemCode = req.body.productId
+    const item = items.find(item => item.code === itemCode)
+    res.send(item)
 })
 
 app.listen(4242, () => { console.log('Server has started on port http://localhost:4242')})

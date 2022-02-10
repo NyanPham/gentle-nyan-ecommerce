@@ -1,14 +1,16 @@
 import React from 'react';
-import weekendBannerImage from '../assets/weekend-banner.png'
+import weekendBannerImage from '../../assets/weekend-banner.png'
 import { useSelector } from 'react-redux'
 import ProductPreview from './ProductPreview';
+import { Link } from 'react-router-dom'
+import { pageTransitionClick } from '../../header/Navbar'
 
 export default function NewArrival() {
     const products = useSelector(state => state.products)
     const newArrivals = products?.filter(product => product.inNewArrival).slice(0, 4)
 
     return (
-        <div className="min-h-screen bg-white" id="new-arrival">
+        <div className="min-h-screen bg-white" id="new-arrival text-center">
             <div className="flex justify-evenly items-center bg-blue-900">
                 <div className="py-4 px-8">
                     <small className="text-xs text-blue-100 sm:text-sm md:text-base">Special Promo</small>
@@ -19,8 +21,8 @@ export default function NewArrival() {
                     <img src={weekendBannerImage} className="translate-y-4 mx-auto max-h-full max-w-full"/>
                 </div> 
             </div>
-            <div className="py-4 px-12">
-                <h2 className="text-center text-3xl text-gray-900 uppercase tracking-wide font-bold mt-3">New Arrival</h2>
+            <div className="showroom bg-white">
+                <h2 className="text-center text-3xl text-gray-900 uppercase tracking-wide font-bold my-3">New Arrival</h2>
                 <div className="flex gap-4 justify-evenly items-center flex-wrap">
                     {newArrivals.length > 0 && (
                         newArrivals.map(item => (
@@ -28,6 +30,9 @@ export default function NewArrival() {
                         ))
                     )}
                 </div>
+               <Link to="/items/inNewArrival" className="mx-auto">
+                    <button className="show-btn" onClick={pageTransitionClick}>Show All</button>
+                </Link>
             </div>
         </div>
     )

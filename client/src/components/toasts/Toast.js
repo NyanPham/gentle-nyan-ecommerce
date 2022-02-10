@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { COLOR_MAP } from '../ProductDetails'
+import { COLOR_MAP } from '../main/ProductDetails'
 
 
 export default function Toast({ name, imageURL, chosenColor, chosenSize, amount, toastedAt }) {
@@ -25,7 +25,7 @@ export default function Toast({ name, imageURL, chosenColor, chosenSize, amount,
             <h2 className="font-md text-base">This item has been added to your cart</h2>
             <div className="flex items-center space-y-3 gap-4">
                 <div className="w-16 h-16">
-                    <img className="max-w-full max-h-full" src={imageURL} />
+                    <img className="max-w-full max-h-full" src={imageURL} alt={name} />
                 </div>
                 <div>
                     <h3 className="text-sm">{name}</h3>
