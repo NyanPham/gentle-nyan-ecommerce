@@ -13,7 +13,7 @@ export default function Testimonial({image, text, name}) {
                 {text}
                 <FontAwesomeIcon className="text-blue-400 absolute -bottom-3 -right-4" icon={faQuoteRight}/>
             </p>
-            <p className="text-blue-700 text-2xl italic font-bold text-center">James Bars</p>
+            <p className="text-blue-700 text-2xl italic font-bold text-center">{name}</p>
         </div>
     )
 }

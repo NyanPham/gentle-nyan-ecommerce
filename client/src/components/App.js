@@ -21,6 +21,8 @@ import PaymentFailure from './cart-and-checkout/PaymentFailure'
 import OrdersList from './cart-and-checkout/OrdersList'
 import ToastContainer from './toasts/ToastContainer'
 import ProductsShowroom from './main/ProductsShowroom'
+import About from './main/About'
+import Contact from './main/Contact'
 
 const stripePromise = loadStripe('pk_test_51KPg5nHUOdMFaBHmnqMPEALXISXFyDNA6Fq2xYB6rfdVBkfgGDo2VCcq3jllLPKUMOD9SpJvYepxB3kCWYpmEDLH00o0vEdn9h')
 function App() {
@@ -61,6 +63,8 @@ function App() {
 						<Route path="/checkout/payment-failure" element={<PaymentFailure />}/>
 						<Route path="/orders" element={<><Header /><OrdersList /><Footer/></>}/>
 						<Route path="/items/:tag" element={<><Header /><ProductsShowroom /><Footer/></>}/>
+						<Route path="/about-us" element={<><Header /><About /><Footer/></>}/>
+						<Route path="/contact" element={<Contact />}/>
 					</Routes>
 				</Router>
 			</div>

@@ -20,8 +20,8 @@ export default function Navbar() {
     function closeMenu() {
         setOpen(false)
     }
-
     function handleNavLinkClick() {
+
         if (open) closeMenu()
         pageTransitionClick()
     }
@@ -34,7 +34,7 @@ export default function Navbar() {
                 <NavLink className="navlink" to="/items/inNewCollection" onClick={handleNavLinkClick}>New Collection</NavLink>
                 <NavLink className="navlink" to="/items/inNewArrival" onClick={handleNavLinkClick}>New Arrival</NavLink>
                 <NavLink className="navlink" to="/blog" onClick={handleNavLinkClick}>Blog</NavLink>
-                <NavLink className="navlink" to="/" onClick={handleNavLinkClick}>Contact us</NavLink>
+                <NavLink className="navlink" to="/contact" onClick={handleNavLinkClick}>Contact us</NavLink>
                 
             </div>
             <div className="hidden p-3 sticky top-0 w-100 bg-white border border-slate-300 sm:flex justify-evenly items-center">
@@ -43,7 +43,7 @@ export default function Navbar() {
                 <NavLink className="navlink" to="/items/inNewCollection" onClick={handleNavLinkClick}>New Collection</NavLink>
                 <NavLink className="navlink" to="/items/inNewArrival" onClick={handleNavLinkClick}>New Arrival</NavLink>
                 <NavLink className="navlink" to="/blog" onClick={handleNavLinkClick}>Blog</NavLink>
-                <NavLink className="navlink" to="/" onClick={handleNavLinkClick}>Contact us</NavLink>
+                <NavLink className="navlink" to="/contact" onClick={handleNavLinkClick}>Contact us</NavLink>
             </div>
             <button className="fixed top-36 right-5 w-7 h-7 bg-gray-900 rounded-sm flex justify-center items-center z-50 sm:hidden"
                 onClick={() => setOpen(prevOpen => !prevOpen)}
