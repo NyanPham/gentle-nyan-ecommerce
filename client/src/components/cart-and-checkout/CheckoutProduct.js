@@ -1,6 +1,7 @@
 import React from 'react';
 import { adjustItemAmountInBasket, removeItemFromBasket } from '../../redux/actions';
 import { useSelector, useDispatch } from 'react-redux'
+import { formatPriceToVND  } from '../../helper';
 
 export default function CheckoutProduct(props) {
     const {
@@ -11,6 +12,8 @@ export default function CheckoutProduct(props) {
         size,
         amount, 
         price,
+        onSale,
+        salePercent,
         disabled = false,
         isOnPayment = false
     } = props
@@ -61,7 +64,12 @@ export default function CheckoutProduct(props) {
                 } 
                 <button onClick={handleAmountChange} name="increment" hidden={disabled}>+</button>
             </div>
-            <p className="text-sky-800 text-base">VND {price * amount}</p>
+            <p className="text-sky-800 text-base">
+                {onSale && salePercent
+                    ?   <span>{formatPriceToVND((price - price * salePercent / 100) * amount)}</span>
+                    :   <span>{formatPriceToVND(price * amount)}</span>
+                }
+            </p>
         </div>
     )
 }

@@ -7,7 +7,6 @@ import { pageTransitionClick } from '../../header/Navbar';
 
 export default function FeaturedProducts() {
     const products = useSelector(state => state.products)
-    const dispatch = useDispatch()
 
     const featuredProducts = products
                                 .filter(product => product.onSale 

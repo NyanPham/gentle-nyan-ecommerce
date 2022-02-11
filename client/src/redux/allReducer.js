@@ -7,6 +7,7 @@ import { resetPasswordReducer } from './resetPasswordReducer'
 import { basketReducer } from './basketReducer'
 import { ordersReducer } from './ordersReducer'
 import toastsReducer from './toastsReducer'
+import { paymentReducer } from './paymentReducer'
 
 const allReducers = combineReducers({
     products: productsReducer,
@@ -16,7 +17,8 @@ const allReducers = combineReducers({
     basket: basketReducer,
     currentUser: userReducer,
     orders: ordersReducer,
-    toasts: toastsReducer
+    toasts: toastsReducer,
+    paymentStatus: paymentReducer
 })
 
 

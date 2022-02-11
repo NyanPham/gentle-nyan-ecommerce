@@ -22,7 +22,12 @@ export function resetValue(inputFields) {
 
 export function getTotalBasket(basket) {
     return basket.reduce((total, item) => {
-        return total + item.price * item.amount
+        if (item.onSale && item.salePercent) {
+            return total + (item.price - item.price * item.salePercent / 100) * item.amount
+        }
+        else {
+            return total + item.price  * item.amount
+        }
     }, 0)
 }
 
@@ -35,4 +40,10 @@ export function shuffle(items) {
     }
 
     return items
+}
+
+export function formatPriceToVND(price) {
+    return price.toLocaleString('vi', {
+        style: 'currency', currency: 'VND'
+    })
 }

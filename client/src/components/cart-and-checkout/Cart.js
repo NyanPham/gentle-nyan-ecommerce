@@ -1,6 +1,6 @@
 import React from 'react';
 import CheckoutProduct from './CheckoutProduct';
-import { getTotalBasket } from '../../helper';
+import { getTotalBasket, formatPriceToVND} from '../../helper';
 import { BENEFITS } from '../main/IntroGrid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux'
@@ -34,6 +34,8 @@ export default function Cart() {
                             size={item.chosenSize}
                             price={item.price}
                             amount={item.amount}
+                            onSale={item.onSale}
+                            salePercent={item.salePercent}
                         />
                     ))}
                 </div>
@@ -43,7 +45,7 @@ export default function Cart() {
                         <p className="text-slate-700 mt-1">Vat included</p>
                         <div className="mt-2 flex justify-between items-center font-bold text-lg text-gray-900">
                             Total:
-                            <span>VND {getTotalBasket(basket)}</span>
+                            <span>{formatPriceToVND(getTotalBasket(basket))}</span>
                         </div>
                         <Link to={`${currentUser ? '/checkout' : '/login'}`}>
                             <button className="w-full mt-2 py-2 text-center text-gray-200 bg-gray-900 rounded-md hover:bg-gray-800 active:ring active:ring-gray-200 transition">Proceed to checkout</button>

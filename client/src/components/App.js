@@ -27,7 +27,7 @@ function App() {
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-        dispatch(fetchProductsFromServer())
+        dispatch(fetchProducts())
     }, [])
 
 	onAuthStateChanged(auth, user => {

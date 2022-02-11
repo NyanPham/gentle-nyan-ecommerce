@@ -4,7 +4,7 @@ import Toast from './Toast'
 
 export default function ToastContainer() {
     const toasts = useSelector(state => state.toasts)
-    console.log(toasts)
+
     return (
         <div className="fixed bottom-5 right-5 space-y-4 pointer-events-none">
           {toasts.length > 0 && (

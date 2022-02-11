@@ -45,15 +45,19 @@ export const ACTIONS = {
     GET_ORDERS: 'get-order',
 
     ADD_TOAST: 'add-toast',
-    DELETE_TOAST: 'delete-toast'
+    DELETE_TOAST: 'delete-toast',
+
+    PAYMENT_START: 'payment-start',
+    PAYMENT_SUCCESSS: 'payment-success',
+    PAYMENT_FAILURE: 'payment-failure'
 }
 
 export function fetchProducts() {
     return async function (dispatch) {
 
-        const itemsRef = collection(db, 'items')
+        const itemsQuery = query(collection(db, 'items'), where('visibility', '==', 'public')) 
 
-        getDocs(itemsRef).then(res => {
+        getDocs(itemsQuery).then(res => {
             dispatch({
                 type: ACTIONS.FETCH_PRODUCTS,
                 payload: {
@@ -80,7 +84,7 @@ export function fetchProductsFromServer() {
     }
 }
 
-export function addToBasket(userId, productId, {name, imageURL, price}, chosenColor, chosenSize, amount) {
+export function addToBasket(userId, productId, {name, imageURL, price, onSale, salePercent}, chosenColor, chosenSize, amount) {
     return async function (dispatch) {
         const addBasketDoc = collection(db, 'baskets')
         await addDoc(addBasketDoc, {
@@ -92,6 +96,8 @@ export function addToBasket(userId, productId, {name, imageURL, price}, chosenCo
             chosenSize,
             amount,
             price,
+            onSale,
+            salePercent,
             createdAt: serverTimestamp()
         })
         dispatch(fetchBasket(userId))
@@ -260,6 +266,43 @@ export function createAnOrder({ basket, created, amount, orderId, userId }) {
             amount, 
             createdAt: created,
             items: basket
+        })
+    }
+}
+
+export function payTheOrder(userId, basket, checkoutItems, stripe,  elements, CardElement) {
+    return async function (dispatch) {
+        dispatch({
+            type: ACTIONS.PAYMENT_START
+        })
+
+        const response = await fetch('http://localhost:4242/make-payment-intent', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({checkoutItems})
+        })
+        const {clientSecret} = await response.json()
+
+        if (!clientSecret) return dispatch({ type: ACTIONS.PAYMENT_FAILURE })
+        
+        stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: elements.getElement(CardElement)
+            }
+        }).then(({paymentIntent}) => {
+            dispatch(createAnOrder({
+                basket,
+                userId, 
+                orderId: paymentIntent.id,
+                created: paymentIntent.created,
+                amount: paymentIntent.amount, 
+            }))
+            dispatch(emptyBasket(userId))
+            dispatch({type: ACTIONS.PAYMENT_SUCCESSS})
+
+        }).catch((err) => {
+            console.error(err.error)
+            dispatch({type: ACTIONS.PAYMENT_FAILURE})
         })
     }
 }

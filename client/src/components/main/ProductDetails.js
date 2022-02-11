@@ -7,6 +7,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import { formatDoc } from '../../helper'
 import { useSelector, useDispatch } from 'react-redux'  
 import { addToBasket } from '../../redux/actions';
+import { formatPriceToVND } from '../../helper';
 
 export const COLOR_MAP = {
     blue: 'bg-blue-500',
@@ -33,23 +34,23 @@ export default function ProductDetails() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        //firebase failed, switch to nodejs
-        // const itemRef = doc(db, 'items', productId)
-        // getDoc(itemRef).then(doc => {
-        //     setCurrentProduct(formatDoc(doc))
-        // })
+        //  if firebase failed, switch to nodejs below
+        const itemRef = doc(db, 'items', productId)
+        getDoc(itemRef).then(doc => {
+            setCurrentProduct(formatDoc(doc))
+        })
 
-        const getProductFromServer = async () => {
-            const response = await fetch('/retrieve-item', {
-                method: 'POST',
-                headers: { "Content-Type": "application/json"},
-                body: JSON.stringify({productId})
-            })
-            const item = await response.json()
-            setCurrentProduct(item)
-        }
+        // const getProductFromServer = async () => {
+        //     const response = await fetch('/retrieve-item', {
+        //         method: 'POST',
+        //         headers: { "Content-Type": "application/json"},
+        //         body: JSON.stringify({productId})
+        //     })
+        //     const item = await response.json()
+        //     setCurrentProduct(item)
+        // }
 
-        getProductFromServer()
+        // getProductFromServer()
 
     }, [productId])
     
@@ -166,7 +167,25 @@ export default function ProductDetails() {
                         </div>
                     </div> 
                     <div className="mt-4 space-y-4">
-                        <h3 className="text-red-500 text-2xl">VND {currentProduct?.price}</h3>
+                        <h3 className="text-red-500 text-2xl">
+                            {
+                                currentProduct?.price 
+                                    ? (
+                                        currentProduct?.onSale && currentProduct?.salePercent
+                                            ? (
+                                                <>
+                                                    <span className="text-gray-900 text-sm line-through">{formatPriceToVND(currentProduct.price)}</span>
+                                                    <span className="ml-2">{formatPriceToVND(currentProduct.price - currentProduct.price * currentProduct.salePercent / 100)}</span>
+                                                    <span className="text-sm ml-2">(-{currentProduct.salePercent}%)</span>
+                                                </>
+                                            )
+                                            :   (
+                                                    <span>{formatPriceToVND(currentProduct.price)}</span>
+                                                )
+                                    )
+                                    : null
+                            }
+                        </h3>
                         <div className='space-y-2'>
                             <h4>Color</h4>
                             {currentProduct.colors?.map((color, index) => {

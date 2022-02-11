@@ -1,11 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import CheckoutProduct from './CheckoutProduct'
 import { useSelector, useDispatch } from 'react-redux'
 import { getTotalBasket } from '../../helper'
 import TextInput from '../TextInput'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { useNavigate } from 'react-router-dom'
-import { createAnOrder, emptyBasket } from '../../redux/actions';
+import { createAnOrder, emptyBasket, payTheOrder } from '../../redux/actions';
 
 const initialUserInfo = {
     name: '',
@@ -24,6 +24,7 @@ const fields = {
 export default function Checkout() {
     const basket = useSelector(state => state.basket)
     const currentUser = useSelector(state => state.currentUser)
+    const { loading, error, successMessage } = useSelector(state => state.paymentStatus)
     const submitBtnRef = useRef()
     const [userInfo, setUserInfo] = useState(initialUserInfo)
     const [validFields, setValidFields] = useState(fields)
@@ -51,33 +52,7 @@ export default function Checkout() {
             }
         })
 
-        const response = await fetch('http://localhost:4242/make-payment-intent', {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({checkoutItems})
-        })
-        const {clientSecret} = await response.json()
-
-        if (!clientSecret) return
-        
-        stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: elements.getElement(CardElement)
-            }
-        }).then(({paymentIntent}) => {
-            dispatch(createAnOrder({
-                basket,
-                userId: currentUser.uid, 
-                orderId: paymentIntent.id,
-                created: paymentIntent.created,
-                amount: paymentIntent.amount, 
-            }))
-            dispatch(emptyBasket(currentUser.uid))
-            navigate('/checkout/payment-success')
-        }).catch((err) => {
-            console.error(err.error)
-            navigate('/checkout/payment-failure')
-        })
+        dispatch(payTheOrder(currentUser.uid, basket, checkoutItems, stripe, elements, CardElement))
 
     }
 
@@ -89,11 +64,15 @@ export default function Checkout() {
             }
         })
     }
-
-    function handleCardChange(e) {
-        e.preventDefault()
-    }
     
+    useEffect(() => {
+        if (error) {
+            navigate('/checkout/payment-failure')
+        } 
+        if (successMessage) {
+            navigate('/checkout/payment-success')
+        }
+    }, [error, successMessage])
 
     return (
         <section className="p-8 bg-white flex flex-col gap-8 lg:flex-row">
@@ -124,7 +103,7 @@ export default function Checkout() {
                         />
                     </div>
                     <div className="form-group flex flex-row gap-4">
-                        <div>
+                        <div className="grow">
                             <label className="label" htmlFor="email">Your email</label>
                             <TextInput 
                                 placeholder="eg.you@website.com"
@@ -140,7 +119,7 @@ export default function Checkout() {
                                 setValidFields={setValidFields}
                             />
                         </div>
-                        <div>
+                        <div className="grow">
                             <label className="label" htmlFor="phone">Your number</label>
                             <TextInput 
                                 placeholder="eg.7777-777-777"
@@ -175,7 +154,7 @@ export default function Checkout() {
                     </div>
                     <div className="mt-8 p-6 border border-slate-500 rounded-lg">
                         <label htmlFor='card-element mb-6'>Your card number</label>
-                        <CardElement onChange={handleCardChange}/>
+                        <CardElement />
                     </div>
                     <button type="submit" ref={submitBtnRef} hidden={true} />
                 </form>
@@ -203,6 +182,7 @@ export default function Checkout() {
                 <button
                     className="submit-button"
                     onClick={() => submitBtnRef.current.click()}
+                    disabled={loading || error || successMessage}
                 >
                     Own now
                 </button>
