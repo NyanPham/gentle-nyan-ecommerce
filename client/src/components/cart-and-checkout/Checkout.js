@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import CheckoutProduct from './CheckoutProduct'
 import { useSelector, useDispatch } from 'react-redux'
-import { getTotalBasket } from '../../helper'
+import { getTotalBasket, formatPriceToVND } from '../../helper'
 import TextInput from '../TextInput'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { useNavigate } from 'react-router-dom'
@@ -172,12 +172,14 @@ export default function Checkout() {
                             amount={item.amount}
                             price={item.price}
                             isOnPayment={true}
+                            onSale={item.onSale}
+                            salePercent={item.salePercent}
                         />
                     ))}
                 </div>
                 <div className="flex justify-between font-bold text-gray-900">
                     <p>Gross total:</p>
-                    <p>VND {getTotalBasket(basket)}</p>
+                    <p>{formatPriceToVND(getTotalBasket(basket))}</p>
                 </div>
                 <button
                     className="submit-button"
