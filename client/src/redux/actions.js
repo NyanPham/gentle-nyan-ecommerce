@@ -56,7 +56,9 @@ export const ACTIONS = {
     CREATE_ARTICLE_SUCCESS: 'create-article-success',
     CREATE_ARTICLE_FAILURE: 'create-article-failure',
 
-    GET_ARTICLES: 'get-articles'
+    GET_ARTICLES: 'get-articles',
+
+    ADD_PRODUCT_TO_STORE: 'add-item-to-store'
 }
 
 export function fetchProducts() {

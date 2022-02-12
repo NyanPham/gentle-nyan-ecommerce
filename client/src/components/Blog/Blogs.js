@@ -5,12 +5,13 @@ import { getArticles } from '../../redux/actions'
 
 export default function Blogs() {
     const articles = useSelector(state => state.articles)
+    const currentUser = useSelector(state => state.currentUser)
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getArticles())
     }, [])
-    console.log(articles)
+
     return (
         <div className="py-7 px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-white">
             {articles.map((article, index)=> {
@@ -19,7 +20,9 @@ export default function Blogs() {
                     {...article}
                 />
             })}
-            <BlogArticlePreview isArticleCreator={true}/>
+            {currentUser?.uid === process.env.REACT_APP_FIREBASE_ADMIN_ID && (
+                <BlogArticlePreview isArticleCreator={true}/>
+            )}
         </div>
     )
 }

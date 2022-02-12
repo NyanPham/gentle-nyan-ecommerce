@@ -4,9 +4,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { shuffle } from '../../helper';
 import { Link } from 'react-router-dom'
 import { pageTransitionClick } from '../../header/Navbar';
+import AddProductButton from './AddProductButton';
 
 export default function FeaturedProducts() {
     const products = useSelector(state => state.products)
+    const currentUser = useSelector(state => state.currentUser)
 
     const featuredProducts = products
                                 .filter(product => product.onSale 
@@ -20,6 +22,9 @@ export default function FeaturedProducts() {
         <div className="showroom" id="featured-products">
             <h2 className="text-center text-3xl text-gray-900 uppercase tracking-wide font-bold mt-3">Featured products</h2>
             <div className="product-grid">
+                {currentUser?.uid === process.env.REACT_APP_FIREBASE_ADMIN_ID &&
+                    <AddProductButton />
+                }
                 {randomChosenProducts?.length > 0 && (
                     randomChosenProducts?.map((item, index) => (
                         <ProductPreview key={`${item.code}_${index}`} {...item}/>
