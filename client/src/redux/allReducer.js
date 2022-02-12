@@ -8,6 +8,8 @@ import { basketReducer } from './basketReducer'
 import { ordersReducer } from './ordersReducer'
 import toastsReducer from './toastsReducer'
 import { paymentReducer } from './paymentReducer'
+import { addArticleReducer } from './addArticleReducer'
+import { articlesReducer } from './articlesReducer'
 
 const allReducers = combineReducers({
     products: productsReducer,
@@ -18,7 +20,9 @@ const allReducers = combineReducers({
     currentUser: userReducer,
     orders: ordersReducer,
     toasts: toastsReducer,
-    paymentStatus: paymentReducer
+    paymentStatus: paymentReducer,
+    addArticleStatus: addArticleReducer,
+    articles: articlesReducer,
 })
 
 

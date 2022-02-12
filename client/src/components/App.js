@@ -23,6 +23,9 @@ import ToastContainer from './toasts/ToastContainer'
 import ProductsShowroom from './main/ProductsShowroom'
 import About from './main/About'
 import Contact from './main/Contact'
+import Blogs from './Blog/Blogs'
+import BlogArticleDetails from './Blog/BlogArticleDetails'
+import CreateArticle from './Blog/CreateArticle'
 
 const stripePromise = loadStripe('pk_test_51KPg5nHUOdMFaBHmnqMPEALXISXFyDNA6Fq2xYB6rfdVBkfgGDo2VCcq3jllLPKUMOD9SpJvYepxB3kCWYpmEDLH00o0vEdn9h')
 function App() {
@@ -65,12 +68,16 @@ function App() {
 						<Route path="/items/:tag" element={<><Header /><ProductsShowroom /><Footer/></>}/>
 						<Route path="/about-us" element={<><Header /><About /><Footer/></>}/>
 						<Route path="/contact" element={<Contact />}/>
+						<Route path="/blog" element={<><Header /><Blogs /><Footer/></>}/>
+						<Route path="/blog/:articleId" element={<><Header /><BlogArticleDetails /><Footer/></>}/>
+						<Route path="/blog/create-article" element={<CreateArticle />}/>
 					</Routes>
 				</Router>
 			</div>
 			<div id="toasts-container">
 				<ToastContainer />
 			</div>
+			<div id="modal-container"></div>
 		</>
 	);
 }
