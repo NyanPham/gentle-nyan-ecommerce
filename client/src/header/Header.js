@@ -51,7 +51,7 @@ export default function Header() {
                         <p className="text-base text-gray-900">0947-xxx-xxx</p>
                     </div>
                 </div>
-                <Link to="/" className="flex flex-col gap-2 relative text-center hover:-translate-y-1">
+                <Link to="/" className="flex flex-col gap-2 relative text-center hover:-translate-y-1 transform transition">
                     <div className="hidden logo-container sm:inline-block">
                         <img 
                             className=""

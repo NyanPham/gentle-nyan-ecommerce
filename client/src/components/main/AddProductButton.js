@@ -94,7 +94,7 @@ export default function AddProductButton() {
     return (
         <>
             <button 
-                className="p-3 h-64 w-60 bg-white shadow-lg rounded-lg overflow-hidden relative text-3xl"
+                className="p-3 h-64 w-60 bg-white shadow-lg rounded-lg overflow-hidden relative text-3xl hover:opacity-50 transition"
                 onClick={openModal}
             >
                 +
