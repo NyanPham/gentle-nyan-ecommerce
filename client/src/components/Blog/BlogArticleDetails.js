@@ -7,12 +7,12 @@ export default function BlogArticleDetails() {
     const articles = useSelector(state => state.articles)
     const currentArticle = articles.find(article => article.id === articleId)
 
-    console.log(currentArticle)
+    const date = new Date(currentArticle?.createdAt)
 
     return (
         <div className="py-7 px-12">
             <h2 className="text-3xl text-blue-600">{currentArticle.title}</h2>
-            <p className="text-sm mt-2 italic text-gray-500">Date: {Date(currentArticle.createdAt)}</p>
+            <p className="text-sm mt-2 italic text-gray-500">Date: {date.toLocaleString()}</p>
             <div className="text-base mt-7 text-gray-900 text-light leading-relaxed">
                 {currentArticle.paraContent.map(para => (
                     <div key={para.id}>

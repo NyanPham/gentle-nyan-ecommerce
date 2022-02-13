@@ -17,7 +17,7 @@ export default function FeaturedProducts() {
     )
     
     const randomChosenProducts = shuffle(featuredProducts).slice(0, 8)
-
+    
     return (
         <div className="showroom" id="featured-products">
             <h2 className="text-center text-3xl text-gray-900 uppercase tracking-wide font-bold mt-3">Featured products</h2>
