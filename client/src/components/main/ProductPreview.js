@@ -31,17 +31,21 @@ export default function ProductPreview({id, imageURL, name, price, salePercent =
                 </span> 
             </div>
             <div className="text-center space-y-1 mt-2">
-                <img className="max-h-32 mx-auto bg-gray-400" src={imageURL} alt={name}/>
-                <h3 className="text-lg">{name}</h3>
-                <p className="text-base text-blue-800">
-                    {onSale
-                        ? (<>
-                            <span className="text-xs line-through text-red-500">{formatPriceToVND(price)}</span>
-                            <span className="ml-1">{formatPriceToVND(price - price * salePercent / 100)}</span>
-                            </>)
-                        : (<span>{formatPriceToVND(price)}</span>)
-                    }
-                </p>
+                <div className="h-32 w-44 mx-auto flex justify-center items-center">
+                    <img className="max-h-full max-w-full object-contain bg-gray-400" src={imageURL} alt={name}/>
+                </div>
+                <div>
+                  <h3 className="text-lg">{name}</h3>
+                    <p className="text-base text-blue-800">
+                        {onSale
+                            ? (<>
+                                <span className="text-xs line-through text-red-500">{formatPriceToVND(price)}</span>
+                                <span className="ml-1">{formatPriceToVND(price - price * salePercent / 100)}</span>
+                                </>)
+                            : (<span>{formatPriceToVND(price)}</span>)
+                        }
+                    </p>  
+                </div>
             </div>
         </div>
     )

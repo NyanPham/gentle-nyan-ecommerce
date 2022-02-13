@@ -2,11 +2,11 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faPhoneVolume, faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { faFacebookSquare, faTwitterSquare, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
-import logo from '../assets/nyan-logo.png'
+import logo from '../../assets/nyan-logo.png'
 import Navbar from './Navbar'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { logOut } from '../redux/actions'
+import { logOut } from '../../redux/actions'
 
 export default function Header() {
     const currentUser = useSelector(state => state.currentUser)
@@ -20,10 +20,10 @@ export default function Header() {
     return (
         <header className="w-100">
             <div className="px-8 py-4 flex justify-between w-100 bg-gray-800 text-white">
-                <div className="hidden space-x-2 items-center text-base md:flex">
-                    <FontAwesomeIcon icon={faFacebookSquare} className="text-2xl"/>
-                    <FontAwesomeIcon icon={faTwitterSquare} className="text-2xl"/>
-                    <FontAwesomeIcon icon={faInstagramSquare} className="text-2xl"/>
+                <div className="hidden space-x-3 items-center text-base md:flex">
+                    <FontAwesomeIcon icon={faFacebookSquare} className="text-2xl cursor-pointer"/>
+                    <FontAwesomeIcon icon={faTwitterSquare} className="text-2xl cursor-pointer"/>
+                    <FontAwesomeIcon icon={faInstagramSquare} className="text-2xl cursor-pointer"/>
                 </div>
                 <div className="flex grow justify-between gap-2 md:justify-end items-center">
                     {currentUser && <Link to="/orders" className="mr-6">{currentUser?.email}</Link>}
@@ -62,7 +62,7 @@ export default function Header() {
                     <p className="text-3xl font-md tracking-12 pt-5 z-10">GentleNyan</p>
                 </Link>
                 <div className="flex flex-row gap-5">
-                    <FontAwesomeIcon icon={faSearch} className="function-icon"/>
+                    {/* <FontAwesomeIcon icon={faSearch} className="function-icon"/> */}
                     <Link to={`${currentUser ? '/cart' : '/login'}`} className="relative">
                         <FontAwesomeIcon icon={faShoppingCart} className="function-icon"/>
                         {currentUser && <div className="w-5 h-5 bg-gray-800 rounded-full flex justify-center items-center text-white text-sm absolute top-4 -left-2">

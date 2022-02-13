@@ -5,7 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
 import { ACTIONS, fetchBasket, fetchOrders } from '../redux/actions'
 import { fetchProducts, fetchProductsFromServer } from '../redux/actions'
-import Header from "../header/Header";
+import Header from "./header/Header";
 import Home from "./main/Home";
 import Footer from './footer/Footer';
 import ProductDetails from './main/ProductDetails';
@@ -56,11 +56,11 @@ function App() {
 				<Router>
 					<Routes>
 						<Route path="/" element={ ( <><Header /><Home /><Footer /></>)} />
-						<Route path="/product/:productId" element={ <><Header/><ProductDetails /></>} />
+						<Route path="/product/:productId" element={ <><Header/><ProductDetails /><Footer /></>} />
 						<Route path="/login" element={<Login />} />
 						<Route path="/signup" element={<Signup />} />
 						<Route path="/forgot-password" element={<ForgotPassword />} />
-						<Route path="/cart" element={<><Header /><Cart /></>} />
+						<Route path="/cart" element={<><Header /><Cart /><Footer /></>} />
 						<Route path="/checkout" element={ <Elements stripe={stripePromise}><Checkout /></Elements>}/>
 						<Route path="/checkout/payment-success" element={<PaymentSuccess />}/>
 						<Route path="/checkout/payment-failure" element={<PaymentFailure />}/>

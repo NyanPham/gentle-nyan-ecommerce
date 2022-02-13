@@ -3,7 +3,7 @@ import weekendBannerImage from '../../assets/weekend-banner.png'
 import { useSelector } from 'react-redux'
 import ProductPreview from './ProductPreview';
 import { Link } from 'react-router-dom'
-import { pageTransitionClick } from '../../header/Navbar'
+import { pageTransitionClick } from '../header/Navbar'
 
 export default function NewArrival() {
     const products = useSelector(state => state.products)

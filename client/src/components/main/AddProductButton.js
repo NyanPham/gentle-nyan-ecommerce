@@ -5,22 +5,23 @@ import { addDoc, collection } from 'firebase/firestore'
 
 const BOOLEAN_FIELDS = ['inNewArrival', 'inNewCollection', 'onSale', 'outOfStock']
 const NUMBER_FIELDS = ['leftInStock', 'price', 'rating', 'salePercent', 'soldNumber']
-const ARRAY_FIELDS = ['colors', 'sizes']
+const ARRAY_FIELDS = ['colors', 'sizes', 'tags']
 
 export default function AddProductButton() {
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [newItem, setNewItem] = useState({
-        category: '',
+        name: '',
         code: '',
+        imageURL: '',
+        category: '',
+        tags: [],
         colors: [],
         sizes: [],
-        imageURL: '',
         inNewArrival: false,
         inNewCollection: false,
         leftInStock: 0,
-        name: '',
         onSale: false,
         outOfStock: false,
         price: 0,
@@ -103,6 +104,7 @@ export default function AddProductButton() {
                 <div className="fixed inset-0 bg-gray-900/50 flex justify-center items-center" id="modal" onClick={handleModalClick}>
                     <form className="w-2/5 h-4/5 p-7 bg-white rounded-lg overflow-y-scroll" onSubmit={handleAddItem}>
                         <h3 className="text-xl font-semibold text-center">Add new item</h3>
+                        {error && <p className="text-red-500">{error}</p>}
                         {fields.map((field, index) => (
                             <div className="form-group" key={index}>
                                 <label htmlFor={field}>{field.toUpperCase()}</label>

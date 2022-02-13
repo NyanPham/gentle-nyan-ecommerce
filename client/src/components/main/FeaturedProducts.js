@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ProductPreview from './ProductPreview';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { shuffle } from '../../helper';
 import { Link } from 'react-router-dom'
-import { pageTransitionClick } from '../../header/Navbar';
+import { pageTransitionClick } from '../header/Navbar';
 import AddProductButton from './AddProductButton';
 
 export default function FeaturedProducts() {

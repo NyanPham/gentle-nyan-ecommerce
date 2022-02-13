@@ -1,26 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import ProductPreview from './ProductPreview'
 import { fetchProducts } from '../../redux/actions'
 
-const SPECIFIC_TAGS = ['inNewArrival', 'inNewCollection', 'onSale']
+const SPECIFIC_COLLECTION = ['inNewArrival', 'inNewCollection', 'onSale']
+const SPECIFIC_CATEGORIES_OR_TAGS=['t-shirts', 't-shirt', 'polo-shirt', 'long-sleeve', 'short-sleeve', 'accessories', 'gadget', 'gadgets', 'sunglasses', 'shoes', 'footwear', 'sneakers']
 const TITLE_MAP = {
     inNewArrival: 'New Arrival',
     inNewCollection: 'New Collection',
-    onSale: 'Price Drop'
+    onSale: 'Price Drop',
+    't-shirts': 'T-Shirts',
+    'long-sleeve': 'Long Sleeve',
+    'short-sleeve': 'Short Sleeve',
+    'polo-shirt': 'Polo Shirts',
+    accessories: 'Male Accessories',
+    gadgets: 'Gadgets',
+    gadget: 'Gadgets',
+    sunglasses: 'Male Sunglasses',
+    shoes: 'Male Shoes', 
+    sneakers: 'Male Sneakers',
+    footwear: 'Male Footwear'
 }
 
 export default function ProductsShowroom() {
     const [productsToShow, setProductsToShow] = useState([])
     const { tag } = useParams()
-    const products = useSelector(state => state.products)
+    const products = useMemo(useSelector(state => state.products))
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(fetchProducts())
-        if (!SPECIFIC_TAGS.includes(tag)) return getAllProducts()
-        getSpecificProducts(tag)
+        if (!SPECIFIC_COLLECTION.includes(tag) && !SPECIFIC_CATEGORIES_OR_TAGS.includes(tag)) return getAllProducts()
+        if (SPECIFIC_COLLECTION.includes(tag)) return getSpecificTagProducts(tag)
+        getSpecificCategoryProducts(tag)
     }, [tag, products])
 
 
@@ -28,14 +41,24 @@ export default function ProductsShowroom() {
         setProductsToShow(products)
     }
 
-    function getSpecificProducts(tag) {
+    function getSpecificTagProducts(tag) {
         const correspondingProducts = products.filter(product => product[tag] === true)
+        setProductsToShow(correspondingProducts)
+    }
+
+    function getSpecificCategoryProducts(tag) {
+        const correspondingProducts = products.filter(product => product.category === tag || product.tags?.includes(tag))
         setProductsToShow(correspondingProducts)
     }
 
     return (
         <div className="showroom">
-            <h2 className="text-2xl font-normal text-left">{SPECIFIC_TAGS.includes(tag) ? TITLE_MAP[tag] : 'All items'}</h2>
+            <h2 className="text-2xl font-normal text-left">
+                {SPECIFIC_COLLECTION.includes(tag) || SPECIFIC_CATEGORIES_OR_TAGS.includes(tag) 
+                    ? TITLE_MAP[tag] 
+                    : 'All items'
+                }
+            </h2>
             <div className="product-grid">
                 {productsToShow?.map((product, index) => (
                     <ProductPreview key={`specific_item_${index}`} {...product} />

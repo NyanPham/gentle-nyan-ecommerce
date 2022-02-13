@@ -5,6 +5,7 @@ import manSunglasses from '../../assets/glasses.jpg'
 import manJump from '../../assets/man-jump.png'
 import manShirt from '../../assets/man-shirt.jpg'
 import shoes from '../../assets/shoes.jpg'
+import { Link } from 'react-router-dom'
 
 export const BENEFITS = [
     {
@@ -57,11 +58,13 @@ export default function IntroGrid() {
                 >
                     <div className="absolute top-28 left-5 space-y-3">
                       <h3 className="text-2xl text-white font-bold uppercase tracking-wide">Men's sunglasses</h3>
-                        <button 
-                            className="py-2 px-4 border-2 border-white text-white text-lg
-                            hover:-translate-y-1 hover:bg-white hover:text-gray-900
-                            transform transition rounded-sm"
-                        >Shop now</button>
+                        <Link to="/items/sunglasses">
+                            <button 
+                                className="py-2 px-4 border-2 border-white text-white text-lg
+                                hover:-translate-y-1 hover:bg-white hover:text-gray-900
+                                transform transition rounded-sm"
+                            >Shop now</button>
+                        </Link>
                     </div>
                 </div>
                 <div 
@@ -70,11 +73,13 @@ export default function IntroGrid() {
                 >
                     <div className="absolute top-28 right-5 space-y-3 -scale-x-100">
                       <h3 className="text-2xl text-white font-bold uppercase tracking-wide">Men's sneakers</h3>
-                        <button 
-                            className="py-2 px-4 border-2 border-white text-white text-lg
-                            hover:-translate-y-1 hover:bg-white hover:text-gray-900
-                            transform transition rounded-sm"
-                        >Shop now</button>
+                        <Link to="/items/sneakers">
+                            <button 
+                                className="py-2 px-4 border-2 border-white text-white text-lg
+                                hover:-translate-y-1 hover:bg-white hover:text-gray-900
+                                transform transition rounded-sm"
+                            >Shop now</button>
+                        </Link>
                     </div>
                 </div>
                 <div 
@@ -83,11 +88,13 @@ export default function IntroGrid() {
                 >
                     <div className="absolute top-72 left-5 space-y-3">
                       <h3 className="text-2xl text-white font-bold uppercase tracking-wide">Men's T-shirt</h3>
-                        <button 
-                            className="py-2 px-4 border-2 border-white text-white text-lg
-                            hover:-translate-y-1 hover:bg-white hover:text-gray-900
-                            transform transition rounded-sm"
-                        >Shop now</button>
+                        <Link to="/items/t-shirts">
+                            <button 
+                                className="py-2 px-4 border-2 border-white text-white text-lg
+                                hover:-translate-y-1 hover:bg-white hover:text-gray-900
+                                transform transition rounded-sm"
+                            >Shop now</button>
+                        </Link>
                     </div>
                 </div>
 
@@ -102,11 +109,13 @@ export default function IntroGrid() {
                         <span className="text-sm">men's shoes</span>
                         <p className="text-2xl font-bold">collection</p>
                     </h3>
-                        <button 
-                            className="py-2 px-4 border-2 border-white text-white text-lg
-                            hover:-translate-y-1 hover:bg-white hover:text-gray-900
-                            transform transition rounded-sm"
-                        >Shop now</button>
+                        <Link to="/items/footwear">
+                            <button 
+                                className="py-2 px-4 border-2 border-white text-white text-lg
+                                hover:-translate-y-1 hover:bg-white hover:text-gray-900
+                                transform transition rounded-sm"
+                            >Shop now</button>
+                        </Link>
                     </div>
                 </div>
             </div>
