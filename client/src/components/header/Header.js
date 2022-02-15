@@ -6,7 +6,7 @@ import logo from '../../assets/nyan-logo.png'
 import Navbar from './Navbar'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { logOut } from '../../redux/actions'
+import { logOut } from '../../redux/actions/authenticationActions'
 
 export default function Header() {
     const currentUser = useSelector(state => state.currentUser)

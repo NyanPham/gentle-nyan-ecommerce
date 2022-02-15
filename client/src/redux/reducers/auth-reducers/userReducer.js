@@ -1,4 +1,4 @@
-import { ACTIONS } from './actions'
+import ACTIONS from '../../actions/authenticationActions'
 
 export function userReducer(state = null, { type, payload } = null) {
     switch (type) {

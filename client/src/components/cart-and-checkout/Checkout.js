@@ -5,7 +5,7 @@ import { getTotalBasket, formatPriceToVND } from '../../helper'
 import TextInput from '../TextInput'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { useNavigate } from 'react-router-dom'
-import { createAnOrder, emptyBasket, payTheOrder } from '../../redux/actions';
+import { payTheOrder } from '../../redux/actions/paymentOrderActions';
 
 const initialUserInfo = {
     name: '',

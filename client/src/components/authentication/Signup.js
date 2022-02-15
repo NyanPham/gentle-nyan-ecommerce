@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
-import { signUp, setSignUpError } from '../../redux/actions'
+import { signUp, setSignUpError } from '../../redux/actions/authenticationActions'
 import { useSelector, useDispatch } from 'react-redux'
 import { resetValue } from '../../helper'
 

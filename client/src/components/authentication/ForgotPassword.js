@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
-import { resetPassword } from '../../redux/actions';
+import { resetPassword } from '../../redux/actions/authenticationActions';
 
 export default function ForgotPassword() {
     const emailRef = useRef()

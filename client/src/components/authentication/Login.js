@@ -1,9 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
-import { logIn } from '../../redux/actions';
+import { logIn } from '../../redux/actions/authenticationActions';
 import { resetValue } from '../../helper';
-import TextInput from '../TextInput'
 
 export default function Login() {
     const emailRef = useRef()

@@ -1,5 +1,5 @@
 import React from 'react';
-import { adjustItemAmountInBasket, removeItemFromBasket } from '../../redux/actions';
+import { adjustItemAmountInBasket, removeItemFromBasket } from '../../redux/actions/basketActions';
 import { useSelector, useDispatch } from 'react-redux'
 import { formatPriceToVND  } from '../../helper';
 

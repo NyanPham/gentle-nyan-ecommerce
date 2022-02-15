@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import { auth } from '../firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
-import { ACTIONS, fetchBasket, fetchOrders } from '../redux/actions'
-import { fetchProducts, fetchProductsFromServer } from '../redux/actions'
+import { fetchBasket } from '../redux/actions/basketActions'
+import { fetchOrders } from '../redux/actions/paymentOrderActions'
+import ACTIONS from '../redux/actions/authenticationActions'
+import { fetchProducts, fetchProductsFromServer } from '../redux/actions/productActions'
 import Header from "./header/Header";
 import Home from "./main/Home";
 import Footer from './footer/Footer';

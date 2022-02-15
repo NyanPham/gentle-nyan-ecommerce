@@ -6,7 +6,7 @@ import { db } from '../../firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import { formatDoc } from '../../helper'
 import { useSelector, useDispatch } from 'react-redux'  
-import { addToBasket } from '../../redux/actions';
+import { addToBasket } from '../../redux/actions/basketActions';
 import { formatPriceToVND } from '../../helper';
 
 export const COLOR_MAP = {

@@ -1,4 +1,4 @@
-import { ACTIONS } from "./actions"
+import ACTIONS from '../../actions/paymentOrderActions'
 
 const initialState = {
     loading: false,

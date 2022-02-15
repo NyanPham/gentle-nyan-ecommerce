@@ -1,6 +1,6 @@
-import { ACTIONS } from './actions'
+import ACTIONS from '../../actions/toastActions'
 
-export default function toastsReducer(state = [], { type, payload }) {
+export function toastsReducer(state = [], { type, payload }) {
     switch (type) {
         case ACTIONS.ADD_TOAST:
             return [

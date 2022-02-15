@@ -1,4 +1,4 @@
-import { ACTIONS } from "./actions"
+import ACTIONS from '../actions/basketActions'
 
 export function basketReducer(state = [], { type, payload }) {
     switch (type) {

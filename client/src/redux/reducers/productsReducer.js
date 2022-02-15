@@ -1,4 +1,4 @@
-import { ACTIONS } from './actions'
+import ACTIONS from '../actions/productActions'
 
 export function productsReducer(state = [], { type, payload }) {
     switch (type) {

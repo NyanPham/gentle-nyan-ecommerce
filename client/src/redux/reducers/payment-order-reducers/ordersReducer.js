@@ -1,4 +1,4 @@
-import { ACTIONS } from "./actions";
+import ACTIONS from '../../actions/paymentOrderActions'
 
 export function ordersReducer(state = [], { type, payload }) {
     switch (type) {

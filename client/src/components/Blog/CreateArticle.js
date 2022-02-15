@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import TextInput from '../TextInput'
 import { Link } from 'react-router-dom'
 import ArticleGroup from './ArticleGroup'
-import { addArticle } from '../../redux/actions'
+import { addArticle } from '../../redux/actions/articleActions'
 import { useDispatch, useSelector } from 'react-redux'
 
 export const IMAGE_EXTENSIONS = ['image/jpg', 'image/jpeg', 'image/png']

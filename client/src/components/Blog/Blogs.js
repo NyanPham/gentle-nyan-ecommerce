@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import BlogArticlePreview from './BlogArticlePreview'
 import { useSelector, useDispatch } from 'react-redux'
-import { getArticles } from '../../redux/actions'
+import { getArticles } from '../../redux/actions/articleActions'
 
 export default function Blogs() {
     const articles = useSelector(state => state.articles)
