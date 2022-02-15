@@ -41,7 +41,7 @@ export default function Header() {
                     }
                 </div>
             </div>
-            <div className="px-8 py-4 bg-white flex justify-between items-center">
+            <div className="px-8 py-4 bg-white flex justify-between items-center relative">
                 <div className="hidden flex-row gap-3 sm:flex">
                     <div className="text-base text-blue-300 flex justify-center items-center" >
                         <FontAwesomeIcon icon={faPhoneVolume} className="text-3xl"/>
@@ -51,7 +51,7 @@ export default function Header() {
                         <p className="text-base text-gray-900">0947-xxx-xxx</p>
                     </div>
                 </div>
-                <Link to="/" className="flex flex-col gap-2 relative text-center hover:-translate-y-1 transform transition">
+                <Link to="/" className="flex flex-col gap-2 text-center hover:-translate-y-1 transform transition sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:hover:-translate-y-1/2 sm:hover:scale-105">
                     <div className="hidden logo-container sm:inline-block">
                         <img 
                             className=""
@@ -59,7 +59,7 @@ export default function Header() {
                             alt="Nyan's Logo" 
                         />
                     </div>
-                    <p className="text-3xl font-md tracking-12 pt-5 z-10">GentleNyan</p>
+                    <p className="text-3xl font-md tracking-12 sm:pt-5 z-10">GentleNyan</p>
                 </Link>
                 <div className="flex flex-row gap-5">
                     {/* <FontAwesomeIcon icon={faSearch} className="function-icon"/> */}

@@ -38,10 +38,14 @@
         @apply text-2xl text-blue-300 hover:opacity-70 hover:-translate-y-1 cursor-pointer transform transition;
     }
 
-    .navlink {
-        @apply py-0 px-1 rounded-sm text-gray-900 text-lg hover:bg-gray-900 hover:text-white transition transform
+    .navlink:not(.active) {
+        @apply py-0 px-1 rounded-sm text-gray-900 text-lg hover:bg-blue-300 hover:text-white transition transform
     }
     
+    .navlink.active {
+        @apply text-blue-500 text-lg py-0 px-1 rounded-sm transition transform
+    }
+
     .text-input {
         @apply w-full p-3 mt-2 border border-gray-300 rounded-md outline-none focus:ring focus:ring-offset-1 focus:ring-sky-400
     }

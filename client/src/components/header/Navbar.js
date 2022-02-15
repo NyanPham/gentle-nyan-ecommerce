@@ -12,16 +12,12 @@ export function pageTransitionClick() {
 
 export default function Navbar() {
     const [open, setOpen] = useState(false)
-    
-    function openMenu() {
-        setOpen(true)
-    }
 
     function closeMenu() {
         setOpen(false)
     }
-    function handleNavLinkClick() {
 
+    function handleNavLinkClick() {
         if (open) closeMenu()
         pageTransitionClick()
     }

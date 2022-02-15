@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux'
 
 export const IMAGE_EXTENSIONS = ['image/jpg', 'image/jpeg', 'image/png']
 
-
 export default function CreateArticle() {
     const [title, setTitle] = useState('')
     const [titleTouched, setTitleTouched] = useState(false)

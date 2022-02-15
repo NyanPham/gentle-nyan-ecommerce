@@ -50,7 +50,7 @@ export default function CheckoutProduct(props) {
                 </button>
             </div>
             <div className="flex space-x-2">
-                <button onClick={handleAmountChange} name="decrement" hidden={disabled}>-</button>
+                <button className="text-lg" onClick={handleAmountChange} name="decrement" hidden={disabled}>-</button>
                 {disabled
                     ? <p className="p-1 flex bg-gray-200 justify-center items-center rounded-sm outline-none">&times; {amount}</p>
                     : (
@@ -62,7 +62,7 @@ export default function CheckoutProduct(props) {
                         />
                     )
                 } 
-                <button onClick={handleAmountChange} name="increment" hidden={disabled}>+</button>
+                <button className="text-lg" onClick={handleAmountChange} name="increment" hidden={disabled}>+</button>
             </div>
             <p className="text-sky-800 text-base">
                 {onSale && salePercent

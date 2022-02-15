@@ -13,7 +13,7 @@ export default function BlogArticlePreview(props) {
     } = props
 
     return (
-        <div className="w-full p-7">
+        <div className="w-full p-7 hover:shadow-lg hover:border hover:border-gray-300 hover:scale-105 transform transition">
             {isArticleCreator
                 ? (
                     <Link
