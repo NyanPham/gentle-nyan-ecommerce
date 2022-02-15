@@ -10,6 +10,7 @@ import { ordersReducer } from './reducers/payment-order-reducers/ordersReducer'
 import { toastsReducer } from './reducers/toast-reducers/toastsReducer'
 import { addArticleReducer } from './reducers/articleReducers/addArticleReducer'
 import { articlesReducer } from './reducers/articleReducers/articlesReducer'
+import { searchItemsReducer } from './reducers/searchItemsReducer'
 
 const allReducers = combineReducers({
     products: productsReducer,
@@ -23,6 +24,7 @@ const allReducers = combineReducers({
     paymentStatus: paymentReducer,
     addArticleStatus: addArticleReducer,
     articles: articlesReducer,
+    searchedItems: searchItemsReducer,
 })
 
 

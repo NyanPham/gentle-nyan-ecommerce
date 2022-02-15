@@ -27,14 +27,14 @@ export default function ProductsShowroom() {
     const [productsToShow, setProductsToShow] = useState([])
     const { tag } = useParams()
     const products = useSelector(state => state.products)
-    const dispatch = useDispatch()
+    const { items: foundItems, terms } = useSelector(state => state.searchedItems)
 
     useEffect(() => {
-        dispatch(fetchProducts())
+        if (tag === 'search-results') return setProductsToShow(foundItems)
         if (!SPECIFIC_COLLECTION.includes(tag) && !SPECIFIC_CATEGORIES_OR_TAGS.includes(tag)) return getAllProducts()
         if (SPECIFIC_COLLECTION.includes(tag)) return getSpecificTagProducts(tag)
         getSpecificCategoryProducts(tag)
-    }, [tag])
+    }, [tag, terms])
 
     function getAllProducts() {
         setProductsToShow(products)
@@ -53,9 +53,12 @@ export default function ProductsShowroom() {
     return (
         <div className="showroom">
             <h2 className="text-2xl font-normal text-left">
-                {SPECIFIC_COLLECTION.includes(tag) || SPECIFIC_CATEGORIES_OR_TAGS.includes(tag) 
-                    ? TITLE_MAP[tag] 
-                    : 'All items'
+                {tag === 'search-results'
+                    ? (`Results: ${terms}`)
+                    :   (SPECIFIC_COLLECTION.includes(tag) || SPECIFIC_CATEGORIES_OR_TAGS.includes(tag) 
+                        ? TITLE_MAP[tag] 
+                        : 'All items'
+                        )
                 }
             </h2>
             <div className="product-grid">

@@ -1,12 +1,13 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faPhoneVolume, faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faPhoneVolume, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { faFacebookSquare, faTwitterSquare, faInstagramSquare } from '@fortawesome/free-brands-svg-icons';
 import logo from '../../assets/nyan-logo.png'
 import Navbar from './Navbar'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { logOut } from '../../redux/actions/authenticationActions'
+import SearchBar from './SearchBar';
 
 export default function Header() {
     const currentUser = useSelector(state => state.currentUser)
@@ -62,7 +63,7 @@ export default function Header() {
                     <p className="text-3xl font-md tracking-12 sm:pt-5 z-10">GentleNyan</p>
                 </Link>
                 <div className="flex flex-row gap-5">
-                    {/* <FontAwesomeIcon icon={faSearch} className="function-icon"/> */}
+                    <SearchBar />
                     <Link to={`${currentUser ? '/cart' : '/login'}`} className="relative">
                         <FontAwesomeIcon icon={faShoppingCart} className="function-icon"/>
                         {currentUser && <div className="w-5 h-5 bg-gray-800 rounded-full flex justify-center items-center text-white text-sm absolute top-4 -left-2">
