@@ -22,7 +22,7 @@ const ACTIONS = {
 }
 
 
-export function addArticle(title, articleImage, content) {
+export function addArticle(title, articleImage, content, author) {
     return async function (dispatch) {
 
         const newArticle = {
@@ -30,7 +30,8 @@ export function addArticle(title, articleImage, content) {
             articleImageURL: undefined,
             paraContent: [],
             visibility: 'public',
-            createdAt: serverTimestamp()
+            createdAt: serverTimestamp(),
+            by: author
         }
 
         dispatch({ type: ACTIONS.CREATE_ARTICLE_START })

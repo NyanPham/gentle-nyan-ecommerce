@@ -131,6 +131,7 @@ export default function ProductDetails() {
                         <img 
                         className="w-72" 
                         src={currentProduct.imageURL}
+                        alt={currentProduct.name}
                     />
                     )} 
                 </div>
@@ -204,7 +205,7 @@ export default function ProductDetails() {
                                 {currentProduct?.sizes?.map((size, index) => {
                                     return (
                                         <div 
-                                            className={`${currentSize === size ? 'border-2 border-gray-900' : null} w-8 h-8 rounded-sm inline-block uppercase bg-gray-400 flex justify-center items-center mr-2 cursor-pointer`}
+                                            className={`${currentSize === size ? 'border-2 border-gray-900' : null} w-8 h-8 rounded-sm uppercase bg-gray-400 flex justify-center items-center mr-2 cursor-pointer`}
                                             key={`size${index}`}
                                             onClick={() => {setCurrentSize(size)}}
                                         >

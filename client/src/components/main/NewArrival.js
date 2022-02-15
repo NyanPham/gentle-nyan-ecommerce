@@ -18,7 +18,7 @@ export default function NewArrival() {
                     <h3 className="text-base text-blue-100 sm:text-lg md:text-2xl mt-4 tracking-wide uppercase">Up to 50% off</h3>
                 </div>
                 <div className="w-2/4">
-                    <img src={weekendBannerImage} className="translate-y-4 mx-auto max-h-full max-w-full"/>
+                    <img className="translate-y-4 mx-auto max-h-full max-w-full" src={weekendBannerImage} alt='boy-sitting'/>
                 </div> 
             </div>
             <div className="showroom bg-white">

@@ -20,12 +20,13 @@ export default function BlogArticleDetails() {
                         <p className="text-base mt-2 leading-relaxed">{para.paragraph}</p>
                         {para.imageFileURL && (
                             <div className="w-72 h-80 mx-auto mt-2">
-                                <img className="max-w-full max-h-full object-cover" src={para.imageFileURL} />
+                                <img className="max-w-full max-h-full object-cover" src={para.imageFileURL} alt={para.subtitle}/>
                             </div>
                         )}
                     </div>
                 ))}
             </div>
+            <p className="italic text-sm text-right">Written by: {currentArticle?.by}</p>
         </div>
     )
 }

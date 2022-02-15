@@ -7,7 +7,7 @@ import {
     onSnapshot, 
     orderBy, 
 } from 'firebase/firestore' 
-import { formatDoc } from '../../helper'
+import { formatDoc, getTotalBasket } from '../../helper'
 import { emptyBasket } from './basketActions'
 
 const ACTIONS = {
@@ -15,6 +15,7 @@ const ACTIONS = {
     PAYMENT_START: 'payment-start',
     PAYMENT_SUCCESSS: 'payment-success',
     PAYMENT_FAILURE: 'payment-failure',
+    RESET_PAYMENT_STATUS: 'reset-payment-status'
 }
 
 export function fetchOrders(userId) {
@@ -49,6 +50,42 @@ export function createAnOrder({ basket, created, amount, orderId, userId }) {
             amount, 
             createdAt: created,
             items: basket
+        })
+    }
+}
+
+export function fakePayTheOrder(userId, basket, checkoutItems, stripe,  elements, CardElement) {
+    return async function (dispatch) {
+        dispatch({
+            type: ACTIONS.PAYMENT_START
+        })
+
+        const promise = new Promise((resolve, reject) => {
+            const randNum = Math.random()
+            setTimeout(() => {
+                if (randNum < 0.5) return reject('Failed to make payment')
+                resolve({
+                    id: `${randNum}_${Date.now().toString()}`,
+                    created: Date.now(),
+                    amount: getTotalBasket(basket)
+                })
+            }, 5000)
+        })
+        
+        promise.then((paymentIntent) => {
+            dispatch(createAnOrder({
+                basket,
+                userId, 
+                orderId: paymentIntent.id,
+                created: paymentIntent.created,
+                amount: paymentIntent.amount, 
+            }))
+            dispatch(emptyBasket(userId))
+            dispatch({type: ACTIONS.PAYMENT_SUCCESSS})
+            console.log('succeeded')
+        }).catch(err => {
+            console.log(err)
+            dispatch({type: ACTIONS.PAYMENT_FAILURE})
         })
     }
 }
@@ -90,6 +127,11 @@ export function payTheOrder(userId, basket, checkoutItems, stripe,  elements, Ca
     }
 }
 
+export function resetPaymentStatus() {
+    return {
+        type: ACTIONS.RESET_PAYMENT_STATUS
+    }
+}
 
 
 export default ACTIONS

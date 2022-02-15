@@ -49,10 +49,10 @@ export default function Header() {
                     </div> 
                     <div className="flex flex-col">
                         <span className="text-base text-blue-300">Call us</span>
-                        <p className="text-base text-gray-900">0947-xxx-xxx</p>
+                        <p className="text-base text-gray-900">0947-057-091</p>
                     </div>
                 </div>
-                <Link to="/" className="flex flex-col gap-2 text-center hover:-translate-y-1 transform transition sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:hover:-translate-y-1/2 sm:hover:scale-105">
+                <Link to="/" className="flex flex-col gap-2 text-center hover:-translate-y-1 transform transition duration-350 sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:hover:-translate-y-1/2 sm:hover:scale-105">
                     <div className="hidden logo-container sm:inline-block">
                         <img 
                             className=""

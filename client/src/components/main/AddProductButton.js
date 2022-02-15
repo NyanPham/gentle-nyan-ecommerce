@@ -65,7 +65,7 @@ export default function AddProductButton() {
     async function handleAddItem(e) {
         e.preventDefault()
         const item = {...newItem}
-        fields.map(field => {
+        fields.forEach(field => {
             if (BOOLEAN_FIELDS.includes(field)) {
                 if (item[field] === 'true') {
                     item[field] = true
@@ -76,7 +76,6 @@ export default function AddProductButton() {
                 item[field] = Array.from(item[field].split(', '))
             }
         })
-        console.log(item)
         
         try {
             setLoading(true)

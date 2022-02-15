@@ -1,6 +1,4 @@
 import React,  { useState } from 'react'
-import ReactDOM from 'react-dom'
-import TextInput from '../TextInput'
 import { Link } from 'react-router-dom'
 import ArticleGroup from './ArticleGroup'
 import { addArticle } from '../../redux/actions/articleActions'
@@ -80,7 +78,7 @@ export default function CreateArticle() {
     function handleCreateArticle(e) {
         e.preventDefault()
         if (!validate()) return setError('Please fill in the fields below properly')
-        dispatch(addArticle(title, mainImageFile, content))
+        dispatch(addArticle(title, mainImageFile, content, author))
     }
 
     return (                
@@ -129,10 +127,10 @@ export default function CreateArticle() {
                 </p>
                 <div className="form-group flex flex-row justify-start items-center">
                     <label htmlFor="author" className="label">Article Author</label>
-                    <select className="ml-2">
-                        <option>Jack Shepherd</option>
-                        <option>Matthew Fox</option>
-                        <option>Nhan Pham</option>
+                    <select className="ml-2" value={author} onChange={(e) => setAuthor(e.target.value)}>
+                        <option value='Jack Shepherd'>Jack Shepherd</option>
+                        <option value='Mathew Fox' >Matthew Fox</option>
+                        <option value='Nhan Pham'>Nhan Pham</option>
                     </select>
                 </div>
                 <button 

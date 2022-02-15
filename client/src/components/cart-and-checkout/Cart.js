@@ -48,7 +48,10 @@ export default function Cart() {
                             <span>{formatPriceToVND(getTotalBasket(basket))}</span>
                         </div>
                         <Link to={`${currentUser ? '/checkout' : '/login'}`}>
-                            <button className="w-full mt-2 py-2 text-center text-gray-200 bg-gray-900 rounded-md hover:bg-gray-800 active:ring active:ring-gray-200 transition">Proceed to checkout</button>
+                            <button 
+                                className="w-full mt-2 py-2 text-center text-gray-200 bg-gray-900 rounded-md hover:bg-gray-800 active:ring active:ring-gray-200 transition disabled:opacity-50 disabled:hover:bg-gray-900"
+                                disabled={basket?.length === 0}
+                            >Proceed to checkout</button>
                         </Link>
                     </div>
                     <div className="mt-4 flex flex-col items-start">

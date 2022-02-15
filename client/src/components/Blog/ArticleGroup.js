@@ -77,7 +77,7 @@ export default function ArticleGroup({ id, subtitle, paragraph, illustrator, han
                     name="illustrator"
                     onChange={handleInputChange}
                 />
-                {illustrator && <img src={illustrator} />}
+                {illustrator && <img src={illustrator} alt={illustrator} />}
             </div>
             {id >= 2 && <button onClick={() => handleDeleteParagraph(id)}>Delete Paragraph</button>}
         </div>

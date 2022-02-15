@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import ProductPreview from './ProductPreview'
-import { fetchProducts } from '../../redux/actions/productActions'
 
 const SPECIFIC_COLLECTION = ['inNewArrival', 'inNewCollection', 'onSale']
 const SPECIFIC_CATEGORIES_OR_TAGS=['t-shirts', 't-shirt', 'polo-shirt', 'long-sleeve', 'short-sleeve', 'accessories', 'gadget', 'gadgets', 'sunglasses', 'shoes', 'footwear', 'sneakers']

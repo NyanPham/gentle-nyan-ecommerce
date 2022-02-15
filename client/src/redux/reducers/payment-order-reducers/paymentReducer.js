@@ -29,6 +29,8 @@ export function paymentReducer(state = initialState, { type, payload }) {
                 successMessage: '',
                 error: 'Your transaction was not successfull'
             }
+        case ACTIONS.RESET_PAYMENT_STATUS:
+            return initialState
         default:
             return state
     }

@@ -1,11 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react'
+import ReactDOM from 'react-dom'
 import CheckoutProduct from './CheckoutProduct'
 import { useSelector, useDispatch } from 'react-redux'
 import { getTotalBasket, formatPriceToVND } from '../../helper'
 import TextInput from '../TextInput'
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { useNavigate } from 'react-router-dom'
-import { payTheOrder } from '../../redux/actions/paymentOrderActions';
+import { payTheOrder, fakePayTheOrder, resetPaymentStatus } from '../../redux/actions/paymentOrderActions'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 const initialUserInfo = {
     name: '',
@@ -52,8 +55,7 @@ export default function Checkout() {
             }
         })
 
-        dispatch(payTheOrder(currentUser.uid, basket, checkoutItems, stripe, elements, CardElement))
-
+        dispatch(fakePayTheOrder(currentUser.uid, basket, checkoutItems, stripe, elements, CardElement))
     }
 
     function handleInputChange(e) {
@@ -72,6 +74,7 @@ export default function Checkout() {
         if (successMessage) {
             navigate('/checkout/payment-success')
         }
+        dispatch(resetPaymentStatus())
     }, [error, successMessage])
 
     return (
@@ -189,6 +192,12 @@ export default function Checkout() {
                     Own now
                 </button>
             </div>
+            {loading && ReactDOM.createPortal(
+                <div className="fixed inset-0 bg-gray-900/90 flex justify-center items-center">
+                    <FontAwesomeIcon icon={faSpinner} className="text-7xl text-sky-500 motion-safe:animate-spinner"/>
+                </div>,
+                document.getElementById('modal-container')
+            )}
         </section>
     )
     

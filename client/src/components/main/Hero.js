@@ -22,7 +22,7 @@ export default function Hero() {
                 >SHOP NOW</button>
             </div>
             <div className="hidden md:inline-block">
-                <img className="-translate-y-14 pointer-events-none" src={bannerImage} />
+                <img className="-translate-y-14 pointer-events-none" src={bannerImage} alt='banner'/>
             </div>
         </div>
         // <div className="flex w-100 h-96 justify-start items-center relative">

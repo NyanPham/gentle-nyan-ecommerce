@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import ReactDOM from 'react-dom'
 import TextInput from '../TextInput'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faPaperPlane, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { db } from '../../firebase'
 import { addDoc, collection } from 'firebase/firestore'
 
@@ -20,7 +20,6 @@ export default function Contact() {
     })
     const [messageTouched, setMessageTouched] = useState(false)
     const [messageFieldError, setMessageFieldError] = useState('')
-    const currentUser = useSelector(state => state.currentUser)
     const [sendError, setSendError] = useState('')
     const [sendSuccessMessage, setSendSuccessMessage] = useState('')
     const [loading, setLoading] = useState(false)
@@ -28,7 +27,7 @@ export default function Contact() {
 
     useEffect(() => {
         if (inputFields.message.length < 25 && messageTouched) {
-            return setMessageFieldError('Please enter your message')
+            return setMessageFieldError('Your message should be at least 25 characters long')
         }
     }, [messageTouched])
 
@@ -103,16 +102,13 @@ export default function Contact() {
     return (
         <div className="py-8 px-16 bg-white h-screen text-center">
         <div className="flex justify-start items-center">
-            <Link to="/"><h2 className="text-3xl text-gray-500 text-slate-500">GentleNyan</h2></Link>
-            {/* <Link to="/signup" className="py-1.5 px-2.5 bg-sky-500 text-sm text-white rounded-sm hover:bg-sky-400 hover:-translate-y-2 hover:shadow-xl transform transition">
-                Sign Up
-            </Link> */}
+            <Link to="/"><h2 className="text-3xl text-gray-500">GentleNyan</h2></Link>
         </div>
         <form className="text-center max-w-lg mx-auto mt-6" onSubmit={handleSendMessage}>
             <h2 className="text-3xl text-gray-900 font-bold">Contact us</h2>
             <h3 className="text-slate-500 mt-6">How can we help?</h3>
-            {sendSuccessMessage && <p className="text-green-500">{sendSuccessMessage}</p>}
-            {sendError && <p className="text-red-500">{sendError}</p>}
+            {sendSuccessMessage && <p className="p-5 bg-green-200 text-green-600">{sendSuccessMessage}</p>}
+            {sendError && <p className="p-5 bg-red-200 text-red-600">{sendError}</p>}
             <div className="form-group">
                 <label htmlFor="name" className="label">Your name</label>
                 <TextInput
@@ -168,6 +164,12 @@ export default function Contact() {
                 <FontAwesomeIcon icon={faPaperPlane} className="ml-2" />
             </button>
         </form>
+        {loading && ReactDOM.createPortal(
+                <div className="fixed inset-0 bg-gray-900/90 flex justify-center items-center">
+                    <FontAwesomeIcon icon={faSpinner} className="text-7xl text-sky-500 motion-safe:animate-spinner"/>
+                </div>,
+                document.getElementById('modal-container')
+        )}
     </div>
 )
 }
