@@ -47,7 +47,8 @@ export default function ArticleGroup({ id, subtitle, paragraph, illustrator, han
             <div className="form-group">
                 <label htmlFor="subtitle" className="label">Subtitle</label>
                 <input
-                    className={`text-input ${touched.subtitle && !subtitle ? 'border-red-500 border' : ''}`}
+                    // className={`text-input ${touched.subtitle && !subtitle ? 'border-red-500 border' : ''}`}
+                    className="text-input"
                     placeholder='eg.LoremIpsum'
                     type="text"
                     name="subtitle"
@@ -55,7 +56,7 @@ export default function ArticleGroup({ id, subtitle, paragraph, illustrator, han
                     onChange={handleInputChange}
                     onBlur={handleInputChange}
                 />
-                {touched.subtitle && !subtitle && <p className="text-red-500 text-sm">Please enter the subtitle</p>}
+                {/* {touched.subtitle && !subtitle && <p className="text-red-500 text-sm">Please enter the subtitle</p>} */}
             </div>
             <div className="form-group">
                 <label htmlFor="paragraph" className="label">Paragraph</label>

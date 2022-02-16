@@ -29,7 +29,7 @@ const TESTIMONIES = [
 
 export default function Testimonials() {
     return (
-        <div className="bg-gray-200 py-10 px-8">
+        <div className="bg-gray-200 py-10 px-8 relative z-0">
             <h2 className="my-4 text-3xl text-gray-900 text-center font-bold uppercase tracking-wide">Customer Testimonials</h2>
             <Swiper 
                 modules={[Navigation]}

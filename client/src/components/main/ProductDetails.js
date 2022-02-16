@@ -126,10 +126,10 @@ export default function ProductDetails() {
     return (
         <>
             <div className="p-12 flex flex-col items-start gap-12 bg-gray-200 sm:flex-row">
-                <div className="w-full flex justify-center items-center sm:w-2/4">
+                <div className="w-full h-96 flex justify-center items-center sm:w-2/4">
                     {currentProduct?.imageURL && (
                         <img 
-                        className="w-72" 
+                        className="w-72"
                         src={currentProduct.imageURL}
                         alt={currentProduct.name}
                     />

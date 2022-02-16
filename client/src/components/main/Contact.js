@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperPlane, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { db } from '../../firebase'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 
 export default function Contact() {
     const [validFields, setValidFields] = useState({
@@ -77,7 +77,8 @@ export default function Contact() {
             await addDoc(collection(db, 'contactReceiver'), {
                 from: inputFields.email,
                 sender: inputFields.name,
-                message: `${inputFields.name} says:\n\t${inputFields.message}`
+                message: `${inputFields.name} says:\n\t${inputFields.message}`,
+                sentAt: serverTimestamp()
             })
             setSendSuccessMessage('Your message has been sent successfully.')
         } catch {
@@ -100,7 +101,7 @@ export default function Contact() {
     }
 
     return (
-        <div className="py-8 px-16 bg-white h-screen text-center">
+        <div className="py-8 px-16 bg-white h-screen text-center motion-safe:animate-fadeIn">
         <div className="flex justify-start items-center">
             <Link to="/"><h2 className="text-3xl text-gray-500">GentleNyan</h2></Link>
         </div>

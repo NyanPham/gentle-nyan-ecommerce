@@ -28,6 +28,7 @@ import Contact from './main/Contact'
 import Blogs from './Blog/Blogs'
 import BlogArticleDetails from './Blog/BlogArticleDetails'
 import CreateArticle from './Blog/CreateArticle'
+import { getArticles } from '../redux/actions/articleActions'
 
 const stripePromise = loadStripe('pk_test_51KPg5nHUOdMFaBHmnqMPEALXISXFyDNA6Fq2xYB6rfdVBkfgGDo2VCcq3jllLPKUMOD9SpJvYepxB3kCWYpmEDLH00o0vEdn9h')
 function App() {
@@ -35,6 +36,7 @@ function App() {
 
 	useEffect(() => {
         dispatch(fetchProducts())
+		dispatch(getArticles())
     }, [])
 
 	onAuthStateChanged(auth, user => {

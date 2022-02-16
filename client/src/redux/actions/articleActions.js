@@ -30,10 +30,9 @@ export function addArticle(title, articleImage, content, author) {
             articleImageURL: undefined,
             paraContent: [],
             visibility: 'public',
-            createdAt: serverTimestamp(),
             by: author
         }
-
+        console.log(articleImage)
         dispatch({ type: ACTIONS.CREATE_ARTICLE_START })
         try {
             const articleImageRef = ref(storage, `images/articles/${title}/${articleImage.name}`)
@@ -41,20 +40,34 @@ export function addArticle(title, articleImage, content, author) {
             const articleImageURL = await getDownloadURL(articleImageRef)
             newArticle['articleImageURL'] = articleImageURL
             for (let para of content) {
-                const paraImageRef = ref(storage, `images/articles/${title}/${para.imageFile.name}`)
-                await uploadBytes(paraImageRef, para.imageFile)
-                const paraImageURL = await getDownloadURL(paraImageRef)
-                newArticle.paraContent.push({
-                    id: para.id,
-                    subtitle: para.subtitle,
-                    paragraph: para.paragraph,
-                    imageFileURL: paraImageURL
-                })
+                if (!para.imageFile) {
+                    newArticle.paraContent.push({
+                        id: para.id,
+                        subtitle: para.subtitle,
+                        paragraph: para.paragraph,
+                        imageFileURL: ''
+                    })
+                } else {
+                    const paraImageRef = ref(storage, `images/articles/${title}/${para.imageFile.name}`)
+                    await uploadBytes(paraImageRef, para.imageFile)
+                    const paraImageURL = await getDownloadURL(paraImageRef)
+                    newArticle.paraContent.push({
+                        id: para.id,
+                        subtitle: para.subtitle,
+                        paragraph: para.paragraph,
+                        imageFileURL: paraImageURL
+                    })
+                }
+                
             }
-            await addDoc(collection(db, 'articles'), newArticle)
+            await addDoc(collection(db, 'articles'), {
+                ...newArticle,
+                createdAt: serverTimestamp()
+            })
             dispatch({ type: ACTIONS.CREATE_ARTICLE_SUCCESS })
-        } catch {
+        } catch (error) {
             dispatch({ type: ACTIONS.CREATE_ARTICLE_FAILURE })
+            console.error(error)
         }
         
     }

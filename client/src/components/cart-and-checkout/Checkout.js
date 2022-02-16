@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react'
-import ReactDOM from 'react-dom'
 import CheckoutProduct from './CheckoutProduct'
 import { useSelector, useDispatch } from 'react-redux'
 import { getTotalBasket, formatPriceToVND } from '../../helper'
@@ -8,7 +7,7 @@ import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { useNavigate } from 'react-router-dom'
 import { payTheOrder, fakePayTheOrder, resetPaymentStatus } from '../../redux/actions/paymentOrderActions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import Spinner from '../modals/Spinner'
 
 const initialUserInfo = {
     name: '',
@@ -78,7 +77,7 @@ export default function Checkout() {
     }, [error, successMessage])
 
     return (
-        <section className="p-8 bg-white flex flex-col gap-8 lg:flex-row">
+        <section className="p-8 bg-white flex flex-col gap-8 lg:flex-row motion-safe:animate-fadeIn">
             <div className="items-center lg:w-2/4 lg:sticky lg:top-0">
                 <h2 className="text-2xl font-normal">Your Cart</h2>
                 <p className="text-slate-500">
@@ -192,12 +191,7 @@ export default function Checkout() {
                     Own now
                 </button>
             </div>
-            {loading && ReactDOM.createPortal(
-                <div className="fixed inset-0 bg-gray-900/90 flex justify-center items-center">
-                    <FontAwesomeIcon icon={faSpinner} className="text-7xl text-sky-500 motion-safe:animate-spinner"/>
-                </div>,
-                document.getElementById('modal-container')
-            )}
+            {loading && <Spinner />}
         </section>
     )
     

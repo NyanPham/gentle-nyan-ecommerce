@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react'
-import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMapMarkerAlt, faPhone, faEnvelope, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faMapMarkerAlt, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { db } from '../../firebase'
 import { addDoc, collection } from 'firebase/firestore'
+import Spinner from '../modals/Spinner'
+import MessageModal from '../modals/MessageModal'
 
 export default function Footer() {
     const emailRef = useRef()
@@ -53,7 +54,7 @@ export default function Footer() {
                     </p>
                     <p className="text-blue-400 text-sm">
                         <FontAwesomeIcon className="mr-3 rotate-90" icon={faPhone} />
-                        0947-xxx-xxx
+                        0947-057-091
                     </p>
                     <p className="text-blue-400 text-sm">
                         <FontAwesomeIcon className="mr-3" icon={faEnvelope} />
@@ -90,15 +91,10 @@ export default function Footer() {
                     type="submit"
                     disabled={message || loading}
                 >GO</button> 
-                {error && <p className="text-red-500">{error}</p>}
-                {message && <p className="text-green-500">{message}</p>}
             </form>
-            {loading && ReactDOM.createPortal(
-                <div className="fixed inset-0 bg-gray-900/90 flex justify-center items-center z-70">
-                    <FontAwesomeIcon icon={faSpinner} className="text-7xl text-sky-500 motion-safe:animate-spinner"/>
-                </div>,
-                document.getElementById('modal-container')
-            )}
+            {loading && <Spinner />}
+            {message && <MessageModal message={message} isError={false}/>}
+            {error && <MessageModal message={error} isError={true}/>}
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import React,  { useState } from 'react'
+import React,  { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import ArticleGroup from './ArticleGroup'
 import { addArticle } from '../../redux/actions/articleActions'
@@ -24,6 +24,23 @@ export default function CreateArticle() {
     const [author, setAuthor] = useState('')
     const { loading, addError, successMessage } = useSelector(state => state.addArticleStatus)
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (successMessage !== '') {
+            setTitle('')
+            setTitleTouched(false)
+            setImage('')
+            setMainImageFile(null)
+            setError('')
+            setContent([{
+                id: '1',
+                subtitle: '',
+                paragraph: '',
+                illustrator: undefined,
+                imageFile: undefined
+            }])
+        }
+    }, [successMessage])
 
     function addArticleImage(e) {
         const file = e.target.files[0]
@@ -69,7 +86,7 @@ export default function CreateArticle() {
         let isValid = true
         if (!title) isValid = false
         content.forEach(p => {
-            if (!p.subtitle || !p.paragraph) isValid = false
+            if (!p.paragraph) isValid = false
         })
 
         return isValid
@@ -84,7 +101,7 @@ export default function CreateArticle() {
     return (                
         <div className="py-8 px-16 bg-white h-screen text-center">
         <div className="flex justify-start items-center">
-            <Link to="/"><h2 className="text-3xl text-gray-500 text-slate-500">GentleNyan</h2></Link>
+            <Link to="/"><h2 className="text-3xl text-gray-500">GentleNyan</h2></Link>
 
         </div>
             <form className="text-center w-3/5 mx-auto mt-6 p-7 bg-white" onSubmit={handleCreateArticle}>
@@ -136,7 +153,7 @@ export default function CreateArticle() {
                 <button 
                     className="submit-button"
                     type="submit"
-                    disabled={loading || successMessage}
+                    disabled={loading}
                 >
                     Create Article
                 </button>

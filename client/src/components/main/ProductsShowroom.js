@@ -26,14 +26,14 @@ export default function ProductsShowroom() {
     const [productsToShow, setProductsToShow] = useState([])
     const { tag } = useParams()
     const products = useSelector(state => state.products)
-    const { items: foundItems, terms } = useSelector(state => state.searchedItems)
 
+    const { items: foundItems, terms } = useSelector(state => state.searchedItems)
     useEffect(() => {
         if (tag === 'search-results') return setProductsToShow(foundItems)
         if (!SPECIFIC_COLLECTION.includes(tag) && !SPECIFIC_CATEGORIES_OR_TAGS.includes(tag)) return getAllProducts()
         if (SPECIFIC_COLLECTION.includes(tag)) return getSpecificTagProducts(tag)
         getSpecificCategoryProducts(tag)
-    }, [tag, terms])
+    }, [tag, terms, products])
 
     function getAllProducts() {
         setProductsToShow(products)

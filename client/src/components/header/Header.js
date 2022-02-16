@@ -62,7 +62,7 @@ export default function Header() {
                     </div>
                     <p className="text-3xl font-md tracking-12 sm:pt-5 z-10">GentleNyan</p>
                 </Link>
-                <div className="flex flex-row gap-5">
+                <div className="mr-7 flex flex-row gap-5 sm:mr-0">
                     <SearchBar />
                     <Link to={`${currentUser ? '/cart' : '/login'}`} className="relative">
                         <FontAwesomeIcon icon={faShoppingCart} className="function-icon"/>

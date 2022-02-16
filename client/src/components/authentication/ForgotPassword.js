@@ -14,7 +14,7 @@ export default function ForgotPassword() {
     }
 
     return (
-        <div className="py-8 px-16 bg-white h-screen text-center">
+        <div className="py-8 px-16 bg-white h-screen text-center motion-safe:animate-fadeIn">
             <div className="flex justify-between items-center">
                 <Link to="/"><h2 className="text-3xl text-gray-500 text-slate-500">GentleNyan</h2></Link>
                 <Link to="/signup" className="py-1.5 px-2.5 bg-sky-500 text-sm text-white rounded-sm hover:bg-sky-400 hover:-translate-y-2 hover:shadow-xl transform transition">
