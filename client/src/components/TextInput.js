@@ -1,4 +1,3 @@
-import { FieldValue } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
 
 export default function TextInput(props) {
@@ -13,7 +12,6 @@ export default function TextInput(props) {
         setValidFields
     } = props
 
-    const [inputValue, setInputValue] = useState(value)
     const [touched, setTouched] = useState(false)
     const [error, setError] = useState('')
     
@@ -33,11 +31,9 @@ export default function TextInput(props) {
                 [name]: false
             }
         }) 
-        
     }, [value, touched])
 
     function onInputChange(e) {
-        setInputValue(e.target.value)
         handleInputChange(e)
     }
 

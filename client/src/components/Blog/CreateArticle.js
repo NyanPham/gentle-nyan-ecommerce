@@ -131,7 +131,7 @@ export default function CreateArticle() {
                         name="articleImage"
                         onChange={addArticleImage}
                     />
-                    {image && <img src={image} />}
+                    {image && <img src={image} alt={`TITLE_${title}`}/>}
                 </div>
                 {content.map(paragraph => (
                     <ArticleGroup key={paragraph.id} {...paragraph} handleParagraphChange={handleParagraphChange} handleDeleteParagraph={deleteParagraph}/>

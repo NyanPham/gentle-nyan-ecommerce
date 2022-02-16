@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { fetchBasket } from '../redux/actions/basketActions'
 import { fetchOrders } from '../redux/actions/paymentOrderActions'
 import ACTIONS from '../redux/actions/authenticationActions'
-import { fetchProducts, fetchProductsFromServer } from '../redux/actions/productActions'
+import { fetchProducts } from '../redux/actions/productActions'
 import Header from "./header/Header";
 import Home from "./main/Home";
 import Footer from './footer/Footer';
@@ -37,7 +37,7 @@ function App() {
 	useEffect(() => {
         dispatch(fetchProducts())
 		dispatch(getArticles())
-    }, [])
+    }, [dispatch])
 
 	onAuthStateChanged(auth, user => {
 		if (user) {

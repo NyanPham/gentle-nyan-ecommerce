@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import AddArticleButton from './CreateArticle'
+// import AddArticleButton from './CreateArticle'
 
 export default function BlogArticlePreview(props) {
     const {
@@ -8,7 +8,6 @@ export default function BlogArticlePreview(props) {
         title = null,
         articleImageURL = null,
         paraContent = null,
-        createdAt = null,
         isArticleCreator = false
     } = props
 
