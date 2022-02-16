@@ -15,7 +15,7 @@ export default function MessageModal({ message, isError }) {
             {ReactDOM.createPortal(
                 <div 
                     className={`
-                        ${open ? 'opacity-100 scale-100 pointer-events-auto motion-safe:animate-modalShow' : 'opacity-0 scale-0 pointer-events-none'}
+                        ${open ? 'opacity-100 scale-100 pointer-events-auto motion-safe:animate-modalShow' : 'opacity-0 scale-0 pointer-events-none motion-safe:animate-modalHide'}
                         p-5 mx-auto bg-white flex flex-col justify-center items-center gap-4 fixed top-3 left-1/2 -translate-x-1/2 z-70 rounded-lg shadow-lg md:flex-row transform transition`
                 }>                
                     <div className={`${isError ? 'bg-red-500 py-3 px-4' : 'bg-green-500 p-4'} rounded-full flex justify-center items-center`}>

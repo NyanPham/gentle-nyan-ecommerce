@@ -107,7 +107,7 @@ export default function Contact() {
         </div>
         <form className="text-center max-w-lg mx-auto mt-6" onSubmit={handleSendMessage}>
             <h2 className="text-3xl text-gray-900 font-bold">Contact us</h2>
-            <h3 className="text-slate-500 mt-6">How can we help?</h3>
+            <h3 className="text-slate-500 my-6">How can we help?</h3>
             {sendSuccessMessage && <p className="p-5 bg-green-200 text-green-600">{sendSuccessMessage}</p>}
             {sendError && <p className="p-5 bg-red-200 text-red-600">{sendError}</p>}
             <div className="form-group">

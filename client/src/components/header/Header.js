@@ -22,9 +22,30 @@ export default function Header() {
         <header className="w-100">
             <div className="px-8 py-4 flex justify-between w-100 bg-gray-800 text-white">
                 <div className="hidden space-x-3 items-center text-base md:flex">
-                    <FontAwesomeIcon icon={faFacebookSquare} className="text-2xl cursor-pointer"/>
-                    <FontAwesomeIcon icon={faTwitterSquare} className="text-2xl cursor-pointer"/>
-                    <FontAwesomeIcon icon={faInstagramSquare} className="text-2xl cursor-pointer"/>
+                    <a 
+                        href="https://www.facebook.com/people/GentleNyan-Pham/100078417304926/" 
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex justify-center items-center"
+                    >
+                        <FontAwesomeIcon icon={faFacebookSquare} className="text-2xl cursor-pointer hover:scale-105 transform transition"/>
+                    </a>
+                    <a 
+                        href="https://twitter.com/GentlenyanP" 
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex justify-center items-center"
+                    >
+                        <FontAwesomeIcon icon={faTwitterSquare} className="text-2xl cursor-pointer hover:scale-105 transform transition"/>
+                    </a>
+                    <a 
+                        href="https://www.instagram.com/" 
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex justify-center items-center"
+                    >
+                        <FontAwesomeIcon icon={faInstagramSquare} className="text-2xl cursor-pointer hover:scale-105 transform transition"/>
+                    </a>
                 </div>
                 <div className="flex grow justify-between gap-2 md:justify-end items-center">
                     {currentUser && <Link to="/orders" className="mr-6">{currentUser?.email}</Link>}
@@ -52,7 +73,7 @@ export default function Header() {
                         <p className="text-base text-gray-900">0947-057-091</p>
                     </div>
                 </div>
-                <Link to="/" className="flex flex-col gap-2 text-center hover:-translate-y-1 transform transition duration-350 sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:hover:-translate-y-1/2 sm:hover:scale-105">
+                <Link to="/" className="flex flex-col gap-2 text-center hover:-translate-y-1 transform transition duration-350 sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:hover:-translate-y-1/2 group">
                     <div className="hidden logo-container sm:inline-block">
                         <img 
                             className=""
@@ -60,7 +81,7 @@ export default function Header() {
                             alt="Nyan's Logo" 
                         />
                     </div>
-                    <p className="text-3xl font-md tracking-12 sm:pt-5 z-10">GentleNyan</p>
+                    <p className="text-3xl font-md tracking-12 sm:pt-5 z-10 group-hover:shadow-white group-hover:shadow-2xl group-hover:scale-105 group-hover:text-gray-700 transform transition">GentleNyan</p>
                 </Link>
                 <div className="mr-7 flex flex-row gap-5 sm:mr-0">
                     <SearchBar />
